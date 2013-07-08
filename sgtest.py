@@ -13,7 +13,7 @@ class MainPage(webapp2.RequestHandler):
         <html>
             <head>
                 <title>
-                spiritual gifts assessment
+                spiritual gifts assessment test change
                 </title>
             </head>
             <body>
