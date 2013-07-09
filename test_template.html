@@ -17,11 +17,12 @@
             		<td>not at all<br />0</td>
             	</tr>
             	{%for question in questions%}
+            	{%set outer_loop=loop%}
             		<tr>
             			<td>{{question}}</td>
-            		{%for x in 1234|make_list%}
+            		{%for x in "12345"|list%}
                 		<td>
-                			<input type="radio" value="{{"4"|add(-x)}}" name="question{{loop.parentloop.counter}}" />
+                			<input type="radio" value="{{loop.revindex0}}" name="question{{outer_loop.counter}}" />
                 		</td>
                 	{% endfor %}
             		</tr>
