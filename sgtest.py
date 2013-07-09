@@ -39,11 +39,26 @@ class MainPage(webapp2.RequestHandler):
 class evaluator(webapp2.RequestHandler):
     
     def post(self):
-        pass
+        #these lists contain the question numbers that pertain to that gift. add them all up and you have your score in that category
+        prophecy=[5, 11, 15, 24, 26, 30, 37, 40, 46, 50, 61, 63, 67, 85, 90]
+        serving=[1, 9,12, 19, 22, 28, 34, 39, 43, 53, 58, 62, 64, 80, 87]
+        teaching=[6, 17, 48, 57, 60, 74, 75, 77, 88, 89, 92, 94, 99, 101, 105]
+        #for now, magic numbers, magic numbers EVERYWHERE!
+        scores=[0,0,0]
+        #this list contains all the other lists, for easy looping
+        gifts=[prophecy, serving, teaching]
+        for gift in enumerate(gifts):
+            for x in gift[1]:
+                if self.request.get("question"+str(x)):
+                    scores[gift[0]]+=int(self.request.get("question"+str(x)))
+        self.response.write("prophecy: "+str(scores[0])+"<br />")
+        self.response.write("serving: "+str(scores[1])+"<br />")
+        self.response.write("teaching: "+str(scores[2])+"<br />")
+        #self.response.write(str(self.request))
         
 
 
-application = webapp2.WSGIApplication([('/', MainPage)], debug=True)
+application = webapp2.WSGIApplication([('/', MainPage), ('/submit', evaluator)], debug=True)
 
 def main():
     application.run()
