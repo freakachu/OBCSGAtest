@@ -16,13 +16,13 @@
             		<td>seldom<br />1</td>
             		<td>not at all<br />0</td>
             	</tr>
-            	{%for question in questions%}
+            	{%for questionNumber in order%}
             	{%set outer_loop=loop%}
             		<tr>
-            			<td>{{question}}</td>
+            			<td>{{questions[questionNumber]}}</td>
             		{%for x in "12345"|list%}
                 		<td>
-                			<input type="radio" value="{{loop.revindex0}}" name="question{{outer_loop.index}}" />
+                			<input type="radio" value="{{loop.revindex0}}" name="question{{questionNumber}}" />
                 		</td>
                 	{% endfor %}
             		</tr>
