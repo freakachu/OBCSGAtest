@@ -35,7 +35,7 @@ class MainPage(webapp2.RequestHandler):
 
         
         #randomize question order in a way that we still know what's what
-        order=range(len(questions))
+        order=range(len(questions)) 
         random.shuffle(order)
         #self.response.write(str(order))
         
