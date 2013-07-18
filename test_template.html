@@ -16,17 +16,19 @@
             		<td>seldom<br />1</td>
             		<td>not at all<br />0</td>
             	</tr>
-            	{%for questionNumber in order%}
+            	{%for question in questions%}
             	{%set outer_loop=loop%}
             		<tr>
-            			<td>{{questions[questionNumber]}}</td>
+            			<td>{{question}}</td>
             		{%for x in "12345"|list%}
                 		<td>
-                			<input type="radio" value="{{loop.revindex0}}" name="question{{questionNumber+1}}" />
+                			<input type="radio" value="{{loop.revindex0}}" name="question{{outer_loop.index}}" />
                 		</td>
                 	{% endfor %}
             		</tr>
             	{% endfor %}
+            	{#It appears that the FustionTables API use maybe be best done directly in the HTML of the test.
+            	 In which case the results would need to be passed from the python portion, back to here.#}
         	</table>
         	<input type="submit" name="submit" value="submit!" />
         </form>    	
