@@ -9,7 +9,7 @@ import pickle
 import datetime
 
 """
-The following imports are for OAuth2 & Google API interation. This shoud allow us to use the built-in method found in:
+The following imports are for OAuth2 & Google API interation. This shoud allow us to use the built-in methods found in:
   
   Fusion Tables: https://google-api-client-libraries.appspot.com/documentation/fusiontables/v1/python/lates/index.html
   
