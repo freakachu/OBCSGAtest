@@ -9,16 +9,7 @@
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/OBCSGAtest</path>
 </pydev_pathproperty>
-<pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
-<path>/Library/Google/google_appengine</path>
-<path>/Library/Google/google_appengine/lib/webapp2-2.5.2</path>
-<path>/Library/Google/google_appengine/lib/google-api-python-client</path>
-<path>/Library/Google/google_appengine/lib/httplib2</path>
-<path>/Library/Google/google_appengine/lib/jinja2-2.6</path>
-<path>/Users/jlambright/git/OBCSGAtest/google-api-python-client-gae-1.1</path>
-<path>/Users/jlambright/git/OBCSGAtest/google-api-python-client-1.1</path>
-<path>/Users/jlambright/git/OBCSGAtest/google-api-python-client-1.1/oauth2client</path>
-</pydev_pathproperty>
+
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.7</pydev_property>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
 </pydev_project>
