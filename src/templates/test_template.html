@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+	<head>
+		{#css link tag will go here eventually#}
+		<title>spiritual gifts assessment</title>
+	</head>
+	<body>
+		<form action ="/submit" method=post> 
+            <table width=600>
+            	<tr>
+            		<td>this has been true in my life...</td>
+            		<td>most of the time<br />4</td>
+            		<td>often<br />3</td>
+            		<td>sometimes<br />2</td>
+            		<td>seldom<br />1</td>
+            		<td>not at all<br />0</td>
+            	</tr>
+            	{%for questionNumber in order%}
+            	
+            		<tr>
+            			<td>{{questions[questionNumber]}}</td>
+            		{%for x in "12345"|list%}
+                		<td>
+                			<input type="radio" value="{{loop.revindex0}}" name="question{{questionNumber+1}}" />
+                		</td>
+                	{% endfor %}
+            		</tr>
+            	{% endfor %}
+            
+        	</table>
+        	<input type="submit" name="submit" value="submit!" />
+        </form>    	
+	</body>
+</html>
