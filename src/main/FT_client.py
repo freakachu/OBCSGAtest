@@ -5,11 +5,10 @@ Created on Jul 16, 2013
 '''
 
 
+import httplib2
+import logging
 import os
-import datetime
-import lib.httplib2
-import lib.APIclientLib
-import lib.Jinga2Lib
+import pickle
 
 
 
@@ -21,13 +20,10 @@ The following imports are for OAuth2 & Google API interaction. This should allow
   OAuth2Client: https://google-api-python-client.googlecode.com/hg/docs/epy/oauth2client-module.html
 
 """
-from lib.OAuth2Lib import appengine, anyjson, clientsecrets
-from lib.OAuth2Lib.appengine import OAuth2DecoratorFromClientSecrets
-from lib.OAuth2Lib.client import AccessTokenRefreshError
-from lib.appengine.api import memcache, urlfetch
-from lib.WebApp2Lib import webapp2
-from lib.WebApp2Lib.webapp2 import WSGIApplication
-
+from gae.lib.webapp2 import webapp2
+from gae.apiclient.discovery import build
+from gae.oauth2client.appengine import OAuth2DecoratorFromClientSecrets
+from gae.google.appengine.api import memcache
 
 
 
@@ -54,8 +50,8 @@ href="https://code.google.com/apis/console">APIs Console</a>.
 """ % CLIENT_SECRETS
 
 
-http = lib.httplib2.Http(memcache)
-service = lib.APIclientLib.discovery.build("fusiontables", "v1", http=http)
+http = httplib2.Http(memcache)
+service = build("fusiontables", "v1", http=http)
 
 
 # Set up an OAuth2Decorator object to be used for authentication.  Add one or
@@ -64,10 +60,7 @@ service = lib.APIclientLib.discovery.build("fusiontables", "v1", http=http)
 # <https://developers.google.com/+/best-practices>.
 decorator = OAuth2DecoratorFromClientSecrets(
     CLIENT_SECRETS,
-    scope=[
-      'https://www.googleapis.com/auth/fusiontables',
-      'https://www.googleapis.com/auth/fusiontables.readonly',
-    ],
+    scope=['https://www.googleapis.com/auth/fusiontables'],
     message=MISSING_CLIENT_SECRETS_MESSAGE)
 
 class FTHandler(webapp2.RequestHandler):

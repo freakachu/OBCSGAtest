@@ -1,0 +1,10 @@
+release: "prerelease-1.8.2"
+timestamp: 1370993282
+api_versions: ['1']
+supported_api_versions:
+  python:
+    api_versions: ['1']
+  python27:
+    api_versions: ['1']
+  go:
+    api_versions: ['go1']

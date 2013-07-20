@@ -1,7 +1,5 @@
 import os
 import random
-import lib.Jinga2Lib.jinja2
-import lib.Jinga2Lib.jinja2.environment
 
 """
 The following imports are for OAuth2 & Google API interaction. This should allow us to use the built-in methods found in:
@@ -11,14 +9,10 @@ The following imports are for OAuth2 & Google API interaction. This should allow
   OAuth2Client: https://google-api-python-client.googlecode.com/hg/docs/epy/oauth2client-module.html
 
 """
-from lib.appengine.api import memcache, urlfetch
-from lib.WebApp2Lib import webapp2
-from lib.WebApp2Lib.webapp2 import WSGIApplication
-from lib.Jinga2Lib import *
-
-
-
-
+from gae.google.appengine.api import memcache, urlfetch
+from gae.lib.webapp2 import webapp2
+from gae.lib.jinja2 import jinja2
+from gae.lib.httplib2 import httplib2
 
 
 
@@ -56,7 +50,7 @@ class MainPage(webapp2.RequestHandler):
         #self.response.write(str(order))
         
             
-        JINJA_ENVIRONMENT =lib.Jinga2Lib.jinja2.environment(loader=lib.Jinga2Lib.jinja2.FileSystemLoader(os.path.dirname(__file__)), extensions=['jinja2.ext.autoescape'])
+        JINJA_ENVIRONMENT =jinja2.environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)), extensions=['jinja2.ext.autoescape'])
         values={"questions": questions, "order": order}
         template = JINJA_ENVIRONMENT.get_template('test_template.html')
         self.response.write(template.render(values))
@@ -85,6 +79,7 @@ class evaluator(webapp2.RequestHandler):
         self.response.write("prophecy: "+str(scores[0])+"<br />")
         self.response.write("serving: "+str(scores[1])+"<br />")
         self.response.write("teaching: "+str(scores[2])+"<br />")
+        
         #we now have all the values as far as the main test is concerned.
         
         #self.response.write(str(self.request))

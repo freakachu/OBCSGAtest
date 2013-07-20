@@ -6,7 +6,7 @@ threadsafe: no
 
 handlers:
 - url: /.*
-  script: sgtest.py
+  script: FT_Client.py
 
 libraries:
 - name: webapp2
