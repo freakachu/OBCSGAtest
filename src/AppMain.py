@@ -12,28 +12,15 @@ import os
 
 from gae.lib.webapp2 import webapp2
 from src.main import FT_client, sgtest
-from src.main.sgtest import MainPage
+from src.main.sgtest import MainPage, evaluator
 from src.main.FT_client import FTHandler
 
-class MainPage(webapp2.RedirectHandler):
-       def get(self):
-           {
-        # Models are queried here, results transferred to template_values
-
-      
-            }
-           path = os.path.join(os.path.dirname(__file__), 'sgtest.py')
-           self.response.out.write(template.render(path, template_values))
            
-class FTHandler(webapp2.RedirectHandler):
-       def get(self):
-           {
-        # Models are queried here, results transferred to template_values
+#this right here is how you sort out what gets called when.
+application = webapp2.WSGIApplication([('/', MainPage), ('/submit', evaluator), ('/FTtest', FTHandler)], debug=True)
 
-      
-            }
+def main():
+    application.run()
 
-           path = os.path.join(os.path.dirname(__file__), 'FT_client.py')
-           self.response.out.write(template.render(path, template_values))
 if __name__ == '__main__':
     pass

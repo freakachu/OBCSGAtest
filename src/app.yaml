@@ -6,7 +6,7 @@ threadsafe: no
 
 handlers:
 - url: /.*
-  script: FT_Client.py
+  script: AppMain.py
 
 libraries:
 - name: webapp2
