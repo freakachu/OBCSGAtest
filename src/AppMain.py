@@ -11,9 +11,9 @@ Need to figure out how to route the calls to sgtest.py and FT_client.py .
 import os
 
 from gae.lib.webapp2 import webapp2
-from src.main import FT_client, sgtest
-from src.main.sgtest import MainPage, evaluator
-from src.main.FT_client import FTHandler
+#from main import FT_client, sgtest
+from main.sgtest import MainPage, evaluator
+from main.FT_client import FTHandler
 
            
 #this right here is how you sort out what gets called when.

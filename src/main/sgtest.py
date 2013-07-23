@@ -52,7 +52,7 @@ class MainPage(webapp2.RequestHandler):
             
         JINJA_ENVIRONMENT =jinja2.environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)), extensions=['jinja2.ext.autoescape'])
         values={"questions": questions, "order": order}
-        template = JINJA_ENVIRONMENT.get_template('test_template.html')
+        template = JINJA_ENVIRONMENT.get_template('templates/test_template.html')
         self.response.write(template.render(values))
         #TODO: paginate the questions!
         #TODO: add personal info fields like name, email, etc to the jinja template
