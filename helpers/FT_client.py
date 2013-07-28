@@ -20,27 +20,28 @@
 Use this project as a starting point if you are just beginning to build a Google
 App Engine project. Remember to download the OAuth 2.0 client secrets which can
 be obtained from the Developer Console <https://code.google.com/apis/console/>
-and save them as 'client_secrets.json' in the project directory.
+and save them as 'client_secrets.json' in the project Pathectory.
 """
 
-import httplib2
 import logging
 import os
+import sys
 import pickle
-import memcache
 import webapp2
 
-from apiclient.discovery import build
-from oauth2client.appengine import oauth2decorator_from_clientsecrets
-from oauth2client.client import AccessTokenRefreshError
 from helpers import config
+from lib import httplib2
+from lib.apiclient.discovery import build
+from lib.oauth2client.appengine import oauth2decorator_from_clientsecrets
+from lib.oauth2client.client import AccessTokenRefreshError
+from google.appengine.api import memcache
 
 
 # CLIENT_SECRETS, name of a file containing the OAuth 2.0 information for this
 # application, including client_id and client_secret.
 # You can see the Client ID and Client secret on the API Access tab on the
 # Google APIs Console <https://code.google.com/apis/console>
-CLIENT_SECRETS = os.path.join(config.STATICFILES_DIR, 'client_secrets.json')
+CLIENT_SECRETS = os.path.join(os.path.dirname(config.STATICFILES_Path), 'client_secrets.json')
 
 # Helpful message to display in the browser if the CLIENT_SECRETS file
 # is missing.
@@ -70,16 +71,15 @@ service = build("fusiontables", "v1", http=http)
 decorator = oauth2decorator_from_clientsecrets(
     CLIENT_SECRETS,
     scope=[
-      'https://www.googleapis.com/auth/fusiontables',
-      'https://www.googleapis.com/auth/fusiontables.readonly',
+      'https://www.googleapis.com/auth/fusiontables'
     ],
     message=MISSING_CLIENT_SECRETS_MESSAGE)
 
 class MainHandler(webapp2.RequestHandler):
 
-  @decorator.oauth_required
-  def get(self):
-    self.response.out.write("""<html><body>
+    @decorator.oauth_required
+    def get(self):
+        self.response.out.write("""<html><body>
 
   <p>Congratulations, you are up and running! At this point you will want to add
   calls into the Fusion Tables API to the <code>main.py</code> file. Please read the

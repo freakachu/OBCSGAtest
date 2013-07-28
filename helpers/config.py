@@ -1,23 +1,34 @@
 import os
 
-"Project Director"
-PROJECT_DIR = os.getcwd()[0]
-"Project Sub-Directories"
-STATICFILES_DIR = os.path.join(PROJECT_DIR,'static')
-TEMPLATES_DIR = os.path.join(PROJECT_DIR,'templates')
-HELPERS_DIR = os.path.join(PROJECT_DIR,'helpers')
-LIB_DIR = os.path.join(PROJECT_DIR,'lib')
-SRC_DIR = os.path.join(PROJECT_DIR,'src')
 
-"Lib Sub Packages Paths"
-APICLIENT = os.path.join(LIB_DIR,'apiclient')
-HTTPLIB2 = os.path.join(LIB_DIR,'httblib2')
-MEMCACHE = os.path.join(LIB_DIR,'memcache')
-OAUTH2 = os.path.join(LIB_DIR,'oauth2client')
-URITMP = os.path.join(LIB_DIR,'uritemplate')
-"Static Files Folder Paths"
-IMG_DIR = os.path.join(STATICFILES_DIR,'img')
-"Templates Folder Paths"
-HTML_DIR = os.path.join(TEMPLATES_DIR, 'html')
-CSS_DIR = os.path.join(TEMPLATES_DIR,'css')
-IMGS_DIR = os.path.join(TEMPLATES_DIR,'img')
+"Main Project Pathectory '/' "
+PROJECT_Path = os.getcwd()[0]
+
+"Lib Package '/lib'"
+LIB_Path = os.path.join(PROJECT_Path,'lib')
+"It's Sub-Pathectories:"
+API_Path = os.path.join(LIB_Path, 'apiclient')
+HTTPLIB2_Path = os.path.join(LIB_Path,'httplib2')
+OAUTH2_Path = os.path.join(LIB_Path,'oath2client')
+URITMPL8_Path = os.path.join(LIB_Path,'uritemplate')
+
+"Source Package '/src'"
+SRC_Path = os.path.join(PROJECT_Path, 'src')
+
+"Helpers Package /helpers"
+HLP_Path = os.path.join(PROJECT_Path, 'helpers')
+
+"Static Files Folder '/static'"
+STATICFILES_Path = os.path.join(PROJECT_Path, 'static')
+"It's Sub-Pathectories:"
+IMGS_Path = os.path.join(STATICFILES_Path,'img')
+
+"Template Files Package '/templates'"
+TEMPLATES_Path = os.path.join(PROJECT_Path,'templates')
+"It's Sub-Pathectories:"
+HTML_Path = os.path.join(TEMPLATES_Path, 'html')
+CSS_Path = os.path.join(TEMPLATES_Path,'css')
+
+
+# Used to verify correct paths.
+#print ('----------------' + '\n' + (PROJECT_Path + "\n" + STATICFILES_Path + "\n" + TEMPLATES_Path + "\n" + HTML_Path + "\n" + CSS_Path + "\n" + IMGS_Path + "\n" +HTTPLIB2_Path + "\n" +SRC_Path))

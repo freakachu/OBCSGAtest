@@ -17,7 +17,7 @@ from helpers.FT_client import MainHandler
 
            
 #this right here is how you sort out what gets called when.
-application = webapp2.RedirectHandler([('/', MainPage.get()), ('/submit', evaluator), ('/FTtest', MainHandler)], debug=True)
+application = webapp2.RedirectHandler([('/', MainPage.get()), ('/submit', evaluator.post()), ('/FTtest', MainHandler.get())], debug=True)
 
 def main():
     application.run()

@@ -1,16 +1,14 @@
-import os
 import random
 import webapp2
+import sys
 
+from helpers import config
 from jinja2 import Environment, FileSystemLoader
 
 class MainPage(webapp2.RequestHandler):
     
     
     def get(self):
-        
-    
-        #html_file =  jinja2.Template(open(os.path.join(config.HTML_DIR, "test_template.html")).read())
         
         #self.response.headers['Content-Type'] = 'text/plain'
         #self.response.out.write('Hello, webapp World!')
@@ -21,12 +19,15 @@ class MainPage(webapp2.RequestHandler):
         random.shuffle(order)
         #self.response.write(str(order))
         
-        JINJA_ENVIRONMENT =Environment(loader=FileSystemLoader('templates/html'), autoescape=True)
+        #self.response.write(str(os.path.split(os.path.split(__file__)[0])[0]))
+        JINJA_ENVIRONMENT = Environment(loader=FileSystemLoader('templates/html'), extensions=['jinja2.ext.autoescape'])
+        #the above line looks janky as hell, but it works.  I'm sure there's a better way but I do not know it.
+        print (JINJA_ENVIRONMENT.list_templates(extensions=None, filter_func=None))
         values={"questions": questions, "order": order}
         template = JINJA_ENVIRONMENT.get_template('test_template.html')
         self.response.write(template.render(values))
         #TODO: paginate the questions!
-        #TODO: add personal info fields like name, email, etc to the jinja template
+        #TODO: add personal info fields like name, email, etc to the jinja2 template
         
 class evaluator(webapp2.RequestHandler):
     

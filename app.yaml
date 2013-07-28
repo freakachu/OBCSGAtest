@@ -1,34 +1,28 @@
 application: obcspiritualgifts
-version: 1
+version: 2
 runtime: python27
 api_version: 1
 threadsafe: false
 
-#-----------------URLS----------------#   
-
+#--------------INCLUDES--------------#
+includes:
+- includes.yaml
+#--------------Handlers--------------#   
 handlers:
-- url: /templates
-  static_dir: templates/
-- url: /html
-  static_dir: templates/html
- 
-#-----------------MAIN----------------# 
-               
+#--------------Scripts---------------# 
 - url: /
-  script: src.sgtest.py
-- url: /submit.*
-  script: src.sgtest.py
-- url: /FTtest.*
-  script: helpers.FT_client.py
+  script: src/sgtest.py
+- url: /FTtest
+  script: helpers/FT_client.py
+- url: /config
+  script: helpers/config.py
 - url: /.*
-  script: src.AppMain.py
+  script: /AppMain.py
 
-#--------------LIBRARIES-------------#  
+#-------------LIBRARIES--------------#  
 
 libraries:
 - name: webapp2
   version: latest
 - name: jinja2
   version: latest
-  
-#--------------INCLUDES--------------#  
