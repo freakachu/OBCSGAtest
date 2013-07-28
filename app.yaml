@@ -4,8 +4,6 @@ runtime: python27
 api_version: 1
 threadsafe: false
 
-<<<<<<< Upstream, based on origin/master
-=======
 #--------------INCLUDES--------------#
 #includes:
 #- includes.yaml
