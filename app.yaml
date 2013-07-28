@@ -4,9 +4,6 @@ runtime: python27
 api_version: 1
 threadsafe: false
 
-#--------------INCLUDES--------------#
-includes:
-- includes.yaml
 #--------------Handlers--------------#   
 handlers:
 #--------------Scripts---------------# 

@@ -2,7 +2,6 @@ import random
 import webapp2
 import sys
 
-from helpers import config
 from jinja2 import Environment, FileSystemLoader
 
 class MainPage(webapp2.RequestHandler):
@@ -19,9 +18,7 @@ class MainPage(webapp2.RequestHandler):
         random.shuffle(order)
         #self.response.write(str(order))
         
-        #self.response.write(str(os.path.split(os.path.split(__file__)[0])[0]))
-        JINJA_ENVIRONMENT = Environment(loader=FileSystemLoader('templates/html'), extensions=['jinja2.ext.autoescape'])
-        #the above line looks janky as hell, but it works.  I'm sure there's a better way but I do not know it.
+        JINJA_ENVIRONMENT = Environment(loader= FileSystemLoader('templates/html'), autoescape=True)
         print (JINJA_ENVIRONMENT.list_templates(extensions=None, filter_func=None))
         values={"questions": questions, "order": order}
         template = JINJA_ENVIRONMENT.get_template('test_template.html')

@@ -13,7 +13,7 @@ import webapp2
 
 
 from src.sgtest import MainPage, evaluator
-from helpers.FT_client import MainHandler
+from src.FT_client import MainHandler
 
            
 #this right here is how you sort out what gets called when.
