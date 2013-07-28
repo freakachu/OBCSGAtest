@@ -15,13 +15,13 @@ handlers:
 #-----------------MAIN----------------# 
                
 - url: /
-  script: main/sgtest.py
+  script: src.sgtest.py
 - url: /submit.*
-  script: main/sgtest.py
+  script: src.sgtest.py
 - url: /FTtest.*
-  script: main/FTHandler.py
+  script: helpers.FT_client.py
 - url: /.*
-  script: /AppMain.py
+  script: src.AppMain.py
 
 #--------------LIBRARIES-------------#  
 

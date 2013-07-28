@@ -1,35 +1,46 @@
-'''
-Created on Jul 16, 2013
+#!/usr/bin/env python
+#
+# Copyright 2012 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-@author: joshua.lambright@gmail.com
-'''
+"""Starting template for Google App Engine applications.
 
+Use this project as a starting point if you are just beginning to build a Google
+App Engine project. Remember to download the OAuth 2.0 client secrets which can
+be obtained from the Developer Console <https://code.google.com/apis/console/>
+and save them as 'client_secrets.json' in the project directory.
+"""
 
 import httplib2
 import logging
 import os
 import pickle
-import webapp2
 import memcache
+import webapp2
 
-"""
-The following imports are for OAuth2 & Google API interaction. This should allow us to use the built-in method found in:
-  
-  Fusion Tables: https://google-api-client-libraries.appspot.com/documentation/fusiontables/v1/python/lates/index.html
-  
-  OAuth2Client: https://google-api-python-client.googlecode.com/hg/docs/epy/oauth2client-module.html
-
-"""
 from apiclient.discovery import build
-from oauth2client.appengine import OAuth2DecoratorFromClientSecrets
-
+from oauth2client.appengine import oauth2decorator_from_clientsecrets
+from oauth2client.client import AccessTokenRefreshError
+from helpers import config
 
 
 # CLIENT_SECRETS, name of a file containing the OAuth 2.0 information for this
 # application, including client_id and client_secret.
 # You can see the Client ID and Client secret on the API Access tab on the
 # Google APIs Console <https://code.google.com/apis/console>
-CLIENT_SECRETS = os.path.join(os.path.dirname('static'), 'client_secrets.json')
+CLIENT_SECRETS = os.path.join(config.STATICFILES_DIR, 'client_secrets.json')
 
 # Helpful message to display in the browser if the CLIENT_SECRETS file
 # is missing.
@@ -56,12 +67,15 @@ service = build("fusiontables", "v1", http=http)
 # more of the following scopes in the scopes parameter below. PLEASE ONLY ADD
 # THE SCOPES YOU NEED. For more information on using scopes please see
 # <https://developers.google.com/+/best-practices>.
-decorator = OAuth2DecoratorFromClientSecrets(
+decorator = oauth2decorator_from_clientsecrets(
     CLIENT_SECRETS,
-    scope=['https://www.googleapis.com/auth/fusiontables'],
+    scope=[
+      'https://www.googleapis.com/auth/fusiontables',
+      'https://www.googleapis.com/auth/fusiontables.readonly',
+    ],
     message=MISSING_CLIENT_SECRETS_MESSAGE)
 
-class FTHandler(webapp2.RequestHandler):
+class MainHandler(webapp2.RequestHandler):
 
   @decorator.oauth_required
   def get(self):
@@ -95,15 +109,15 @@ class FTHandler(webapp2.RequestHandler):
   </blockquote>
 """)
 
-def ft_handler():
-  application = webapp2.WSGIApplication(
+def main():
+    application = webapp2.WSGIApplication(
       [
-       ('/', FTHandler),
+       ('/', MainHandler),
        (decorator.callback_path, decorator.callback_handler()),
       ],
       debug=True)
-  application.run()
+    application.run()
 
 
 if __name__ == '__main__':
-  ft_handler()
+    main()

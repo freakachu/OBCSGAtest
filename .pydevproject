@@ -16,6 +16,9 @@
 <path>/Library/Google/google_appengine/google/appengine</path>
 <path>/Library/Google/google_appengine/google/appengine/api</path>
 <path>/Library/Python/2.7/site-packages/Jinja2-2.7-py2.7.egg</path>
+<path>/Library/Google/Google API Clients/google-api-python-client-gae-1.1</path>
+<path>/Library/Google/google_appengine/lib/httplib2</path>
+<path>/Library/Google/google_appengine/lib/jinja2-2.6/jinja2</path>
 </pydev_pathproperty>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.7</pydev_property>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Python2.7</pydev_property>

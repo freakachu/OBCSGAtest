@@ -12,12 +12,12 @@ import os
 import webapp2
 
 
-from main.sgtest import MainPage, evaluator
-from main.FT_client import FTHandler
+from src.sgtest import MainPage, evaluator
+from helpers.FT_client import MainHandler
 
            
 #this right here is how you sort out what gets called when.
-application = webapp2.RedirectHandler([('/', MainPage.get()), ('/submit', evaluator), ('/FTtest', FTHandler)], debug=True)
+application = webapp2.RedirectHandler([('/', MainPage.get()), ('/submit', evaluator), ('/FTtest', MainHandler)], debug=True)
 
 def main():
     application.run()
