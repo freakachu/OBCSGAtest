@@ -1,8 +1,14 @@
 import random
 import webapp2
 import sys
+import logging
+import httplib2
 
-from jinja2 import Environment, FileSystemLoader
+import jinja2
+from apiclient.discovery import build
+from oauth2client.client import AccessTokenRefreshError
+from google.appengine.api import memcache
+from oauth2client.client import SignedJwtAssertionCredentials
 
 class MainPage(webapp2.RequestHandler):
     
@@ -18,8 +24,7 @@ class MainPage(webapp2.RequestHandler):
         random.shuffle(order)
         #self.response.write(str(order))
         
-        JINJA_ENVIRONMENT = Environment(loader= FileSystemLoader('templates/html'), autoescape=True)
-        print (JINJA_ENVIRONMENT.list_templates(extensions=None, filter_func=None))
+        JINJA_ENVIRONMENT = jinja2.Environment(loader= jinja2.FileSystemLoader('templates/html'), autoescape=True)
         values={"questions": questions, "order": order}
         template = JINJA_ENVIRONMENT.get_template('test_template.html')
         self.response.write(template.render(values))
@@ -29,6 +34,23 @@ class MainPage(webapp2.RequestHandler):
 class evaluator(webapp2.RequestHandler):
     
     def post(self):
+        #get private key for authentication
+        f=file('static/key.pem', 'rb')
+        key= f.read()
+        f.close()
+        
+        
+        #create credentials for our service account using our private key
+        credentials= SignedJwtAssertionCredentials(
+            '642636158554@developer.gserviceaccount.com',
+            key,
+            scope='https://www.googleapis.com/auth/fusiontables')
+
+        #setup our service object to access fusion tables
+        http = httplib2.Http(memcache)
+        http = credentials.authorize(http)
+        fusionTables = build("fusiontables", "v1", http=http)
+        tableID='1FldbAM9tCWQxWAm1MqOBYI6NsXl4IZQbYuAtjCg'
         #these lists contain the question numbers that pertain to that gift. add them all up and you have your score in that category
         prophecy=[5, 11, 15, 24, 26, 30, 37, 40, 46, 50, 61, 63, 67, 85, 90]
         serving=[1, 9,12, 19, 22, 28, 34, 39, 43, 53, 58, 62, 64, 80, 87]
@@ -48,6 +70,13 @@ class evaluator(webapp2.RequestHandler):
         self.response.write("prophecy: "+str(scores[0])+"<br />")
         self.response.write("serving: "+str(scores[1])+"<br />")
         self.response.write("teaching: "+str(scores[2])+"<br />")
+        
+        
+        response=fusionTables.table().get(tableId=tableID)
+        response=response.execute(http=http)
+        self.response.write(response)
+        response=fusionTables.query().sql(sql='select * from '+tableID).execute(http=http)
+        self.response.write(response)
         
         #we now have all the values as far as the main test is concerned.
         

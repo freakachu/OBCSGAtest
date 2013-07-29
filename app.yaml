@@ -10,14 +10,12 @@ threadsafe: false
 #--------------Handlers--------------#   
 handlers:
 #--------------Scripts---------------# 
-- url: /
+- url: /.*
   script: src/sgtest.py
 - url: /FTtest
   script: helpers/FT_client.py
 - url: /config
   script: helpers/config.py
-- url: /.*
-  script: /AppMain.py
 
 #-------------LIBRARIES--------------#  
 
