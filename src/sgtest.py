@@ -95,8 +95,8 @@ class evaluator(webapp2.RequestHandler):
         #response=fusionTables.query().sql(sql='select * from '+tableID).execute(http=http)
         #self.response.write(response)
         #self.response.write("<br />")
-        response=fusionTables.query().sql(sql="insert into "+tableID+" (TimeStamp, 'First Name', 'Last Name', 'Email Address', 'Taking OBC 301', 'Date Of Class', Prophecy, Service, Teaching, Exhortation, Giving, Mercy) "+
-                                             "values ('"+str(now)+"', '"+firstName+"', '"+lastName+"', '"+email+"', 'Y', '', "+str(scores[0])+', '+str(scores[1])+', '+str(scores[2])+', '+str(scores[3])+', '+str(scores[4])+', '+str(scores[6])+')').execute(http=http)
+        response=fusionTables.query().sql(sql="insert into "+tableID+" (TimeStamp, 'First Name', 'Last Name', 'Email Address', 'Taking OBC 301', 'Date Of Class', Prophecy, Service, Teaching, Exhortation, Giving, Administration, Mercy) "+
+                                             "values ('"+str(now)+"', '"+firstName+"', '"+lastName+"', '"+email+"', 'Y', '', "+str(scores[0])+', '+str(scores[1])+', '+str(scores[2])+', '+str(scores[3])+', '+str(scores[4])+', '+str(scores[5])+', '+str(scores[6])+')').execute(http=http)
         
         #time to render the results template
         jinjaEnv=jinja2.Environment(loader= jinja2.FileSystemLoader('templates/html'), autoescape=True)
