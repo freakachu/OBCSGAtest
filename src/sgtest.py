@@ -3,6 +3,7 @@ import webapp2
 import sys
 import logging
 import httplib2
+import datetime
 
 import jinja2
 from apiclient.discovery import build
@@ -69,7 +70,7 @@ class evaluator(webapp2.RequestHandler):
         self.response.write("prophecy: "+str(scores[0])+"<br />")
         self.response.write("serving: "+str(scores[1])+"<br />")
         self.response.write("teaching: "+str(scores[2])+"<br />")
-        
+        now=datetime.datetime.now()
         
         response=fusionTables.table().get(tableId=tableID)
         response=response.execute(http=http)
@@ -78,7 +79,7 @@ class evaluator(webapp2.RequestHandler):
         self.response.write(response)
         self.response.write("<br />")
         #response=fusionTables.query().sql(sql="insert into "+tableID+" (TimeStamp, 'First Name', 'Last Name', 'Email Address', 'Taking OBC 301', 'Date Of Class', Prophecy, Service, Teaching, Exhortation, Giving, Mercy) "+
-        #                                     "values ('', 'nub', 'cake', 'rofl@mao.com', 'Y', '', "+str(scores[0])+', '+str(scores[1])+', '+str(scores[2])+', '+str(scores[3])+', '+str(scores[4])+', '+str(scores[6])+')').execute(http=http)
+        #                                     "values ('"+str(now)+"', 'nub', 'cake', 'rofl@mao.com', 'Y', '', "+str(scores[0])+', '+str(scores[1])+', '+str(scores[2])+', '+str(scores[3])+', '+str(scores[4])+', '+str(scores[6])+')').execute(http=http)
         #self.response.write(response)
         #we now have all the values as far as the main test is concerned.
         
