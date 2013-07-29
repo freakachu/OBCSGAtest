@@ -66,6 +66,7 @@ service = build("fusiontables", "v1", http=http)
 class MainHandler(webapp2.RequestHandler):
 
     #@decorator.oauth_required
+    
     def get(self):
         self.response.write(str(credentials))
         tables=service.table().list().execute(http)
