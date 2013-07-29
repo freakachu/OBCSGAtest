@@ -78,7 +78,14 @@ class evaluator(webapp2.RequestHandler):
         self.response.write("prophecy: "+str(scores[0])+"<br />")
         self.response.write("serving: "+str(scores[1])+"<br />")
         self.response.write("teaching: "+str(scores[2])+"<br />")
+        
         now=datetime.datetime.now()
+        #these fields should be verified, specially the email.
+        #we should probably do that with JS on the page itself
+        #but doing it again here can't hurt
+        firstName=self.request.get("firstName")
+        lastName=self.request.get("lastName")
+        email=self.request.get("email")
         
         response=fusionTables.table().get(tableId=tableID)
         response=response.execute(http=http)
@@ -86,8 +93,8 @@ class evaluator(webapp2.RequestHandler):
         response=fusionTables.query().sql(sql='select * from '+tableID).execute(http=http)
         self.response.write(response)
         self.response.write("<br />")
-        #response=fusionTables.query().sql(sql="insert into "+tableID+" (TimeStamp, 'First Name', 'Last Name', 'Email Address', 'Taking OBC 301', 'Date Of Class', Prophecy, Service, Teaching, Exhortation, Giving, Mercy) "+
-        #                                     "values ('"+str(now)+"', 'nub', 'cake', 'rofl@mao.com', 'Y', '', "+str(scores[0])+', '+str(scores[1])+', '+str(scores[2])+', '+str(scores[3])+', '+str(scores[4])+', '+str(scores[6])+')').execute(http=http)
+        response=fusionTables.query().sql(sql="insert into "+tableID+" (TimeStamp, 'First Name', 'Last Name', 'Email Address', 'Taking OBC 301', 'Date Of Class', Prophecy, Service, Teaching, Exhortation, Giving, Mercy) "+
+                                             "values ('"+str(now)+"', '"+firstName+"', '"+lastName+"', '"+email+"', 'Y', '', "+str(scores[0])+', '+str(scores[1])+', '+str(scores[2])+', '+str(scores[3])+', '+str(scores[4])+', '+str(scores[6])+')').execute(http=http)
         #self.response.write(response)
         #we now have all the values as far as the main test is concerned.
         
