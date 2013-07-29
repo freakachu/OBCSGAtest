@@ -11,6 +11,23 @@ from oauth2client.client import AccessTokenRefreshError
 from google.appengine.api import memcache
 from oauth2client.client import SignedJwtAssertionCredentials
 
+def getAuthHttp():
+    #get private key for authentication
+    
+        f=file('static/key.pem', 'rb')
+        key= f.read()
+        f.close()
+        
+        
+        #create credentials for our service account using our private key
+        credentials= SignedJwtAssertionCredentials(
+            '642636158554@developer.gserviceaccount.com',
+            key,
+            scope='https://www.googleapis.com/auth/fusiontables')
+        http = httplib2.Http(memcache)
+        http = credentials.authorize(http)
+        return http
+
 class MainPage(webapp2.RequestHandler):
     
     
@@ -34,21 +51,7 @@ class MainPage(webapp2.RequestHandler):
 class evaluator(webapp2.RequestHandler):
     
     def post(self):
-        #get private key for authentication
-        f=file('static/key.pem', 'rb')
-        key= f.read()
-        f.close()
-        
-        
-        #create credentials for our service account using our private key
-        credentials= SignedJwtAssertionCredentials(
-            '642636158554@developer.gserviceaccount.com',
-            key,
-            scope='https://www.googleapis.com/auth/fusiontables')
-
-        #setup our service object to access fusion tables
-        http = httplib2.Http(memcache)
-        http = credentials.authorize(http)
+        http=getAuthHttp()
         fusionTables = build("fusiontables", "v1", http=http)
         tableID='1FldbAM9tCWQxWAm1MqOBYI6NsXl4IZQbYuAtjCg'
         #these lists contain the question numbers that pertain to that gift. add them all up and you have your score in that category
