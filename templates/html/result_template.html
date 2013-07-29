@@ -4,7 +4,7 @@
     	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
     	<script type="text/javascript">
 			// Load the Visualization API and the piechart package.
-      		google.load('visualization', '1.0', {'packages':['corechart']});
+      		google.load('visualization', '1.0', {'packages':['corechart', 'table']});
       
       		// Set a callback to run when the Google Visualization API is loaded.
       		google.setOnLoadCallback(drawChart);
@@ -13,8 +13,26 @@
       		
       			var data = new google.visualization.DataTable();
       			data.addColumn('string', 'Gift');
-      			data.addCloumn('number', 'result');
+      			data.addColumn('number', 'result');
       			data.addRows([
+      			{%for gift in giftNames%}{%if loop.index!=1%},{%endif%} ['{{gift}}', {{scores[loop.index0]}}]{%endfor%}
+      			]);
       			
-      			]); 
+      			var options = {'title': 'spiritual gifts results',
+      							'width':800,
+      							'height':600};
+      			var chart=new google.visualization.PieChart(document.getElementById('chart'));
+      			chart.draw(data, options);
+      			
+      			var table=new google.visualization.Table(document.getElementById('bar'));
+      			table.draw(data, options);
+      			}
+      	</script>
+	</head>
+    <body>
+      	<div id="chart" style="width:800; height:600"></div><br>
+      	<div id="bar" style="width:800; height:600"></div><br>
+    </body>
+</html>
+      			 
 			

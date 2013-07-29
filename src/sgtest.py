@@ -71,14 +71,14 @@ class evaluator(webapp2.RequestHandler):
         scores=[0,0,0,0,0,0,0]
         giftNames=['prophecy', 'serving', 'teaching', 'exhortation', 'giving', 'administration', 'mercy']
         #this list contains all the other lists, for easy looping
-        gifts=
+        gifts=[prophecy, serving, teaching, exhortation, giving, administration, mercy]
         for gift in enumerate(gifts):
             for x in gift[1]:
                 if self.request.get("question"+str(x)):
                     scores[gift[0]]+=int(self.request.get("question"+str(x)))
-        self.response.write("prophecy: "+str(scores[0])+"<br />")
-        self.response.write("serving: "+str(scores[1])+"<br />")
-        self.response.write("teaching: "+str(scores[2])+"<br />")
+        #self.response.write("prophecy: "+str(scores[0])+"<br />")
+        #self.response.write("serving: "+str(scores[1])+"<br />")
+        #self.response.write("teaching: "+str(scores[2])+"<br />")
         
         now=datetime.datetime.now()
         #these fields should be verified, specially the email.
@@ -101,7 +101,7 @@ class evaluator(webapp2.RequestHandler):
         #time to render the results template
         jinjaEnv=jinja2.Environment(loader= jinja2.FileSystemLoader('templates/html'), autoescape=True)
         values={"giftNames": giftNames, "scores": scores}
-        template = JINJA_ENVIRONMENT.get_template('result_template.html')
+        template = jinjaEnv.get_template('result_template.html')
         self.response.write(template.render(values))
         
         #self.response.write(response)
