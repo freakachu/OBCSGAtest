@@ -69,8 +69,9 @@ class evaluator(webapp2.RequestHandler):
         mercy=[4, 16, 21, 27, 33, 38, 42, 54, 59, 66, 68, 84, 91, 96]
         #for now, magic numbers, magic numbers EVERYWHERE!
         scores=[0,0,0,0,0,0,0]
+        giftNames=['prophecy', 'serving', 'teaching', 'exhortation', 'giving', 'administration', 'mercy']
         #this list contains all the other lists, for easy looping
-        gifts=[prophecy, serving, teaching, exhortation, giving, administration, mercy]
+        gifts=
         for gift in enumerate(gifts):
             for x in gift[1]:
                 if self.request.get("question"+str(x)):
@@ -86,15 +87,23 @@ class evaluator(webapp2.RequestHandler):
         firstName=self.request.get("firstName")
         lastName=self.request.get("lastName")
         email=self.request.get("email")
+              
         
-        response=fusionTables.table().get(tableId=tableID)
-        response=response.execute(http=http)
-        self.response.write(response)
-        response=fusionTables.query().sql(sql='select * from '+tableID).execute(http=http)
-        self.response.write(response)
-        self.response.write("<br />")
+        #response=fusionTables.table().get(tableId=tableID)
+        #response=response.execute(http=http)
+        #self.response.write(response)
+        #response=fusionTables.query().sql(sql='select * from '+tableID).execute(http=http)
+        #self.response.write(response)
+        #self.response.write("<br />")
         response=fusionTables.query().sql(sql="insert into "+tableID+" (TimeStamp, 'First Name', 'Last Name', 'Email Address', 'Taking OBC 301', 'Date Of Class', Prophecy, Service, Teaching, Exhortation, Giving, Mercy) "+
                                              "values ('"+str(now)+"', '"+firstName+"', '"+lastName+"', '"+email+"', 'Y', '', "+str(scores[0])+', '+str(scores[1])+', '+str(scores[2])+', '+str(scores[3])+', '+str(scores[4])+', '+str(scores[6])+')').execute(http=http)
+        
+        #time to render the results template
+        jinjaEnv=jinja2.Environment(loader= jinja2.FileSystemLoader('templates/html'), autoescape=True)
+        values={"giftNames": giftNames, "scores": scores}
+        template = JINJA_ENVIRONMENT.get_template('result_template.html')
+        self.response.write(template.render(values))
+        
         #self.response.write(response)
         #we now have all the values as far as the main test is concerned.
         
