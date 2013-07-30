@@ -4,6 +4,8 @@ import sys
 import logging
 import httplib2
 import datetime
+import time
+import logging
 
 import jinja2
 from apiclient.discovery import build
@@ -42,7 +44,7 @@ class MainPage(webapp2.RequestHandler):
         qFile.close()
         
         #randomize question order in a way that we still know what's what
-        order=range(len(questions)) 
+        order=range(len(questions))
         random.shuffle(order)
         
         
@@ -81,6 +83,10 @@ class evaluator(webapp2.RequestHandler):
         #self.response.write("teaching: "+str(scores[2])+"<br />")
         
         now=datetime.datetime.now()
+        now=now-datetime.timedelta(hours=4)
+        #this is a total quick and dirty hack to make the timestamp EST.
+        #it's terrible and not ideal, but it will work for now.
+        logging.info(str(now))
         #these fields should be verified, specially the email.
         #we should probably do that with JS on the page itself
         #but doing it again here can't hurt
