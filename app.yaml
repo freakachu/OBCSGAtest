@@ -10,7 +10,7 @@ threadsafe: false
 #--------------Handlers--------------#   
 handlers:
 #--------------Scripts---------------# 
-- url: /
+- url: /.*
   script: src/sgtest.py
 - url: /FTtest
   script: src/FT_client.py
@@ -18,8 +18,7 @@ handlers:
   script: src/config.py
 - url: /OAuth2
   script: src/OAuth2_Handler.py
-- url: /.*
-  script: /AppMain.py
+
 
 #-------------LIBRARIES--------------#  
 

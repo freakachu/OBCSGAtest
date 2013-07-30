@@ -24,7 +24,7 @@ def OAuth2Handler(text):
 
 """
 pathectory: noun.
-the horrible mangling of the words "path" and "dirctory" into a meaningless portmanteau.
+the horrible mangling of the words "path" and "directory" into a meaningless portmanteau.
 
 see "URLdress"  
 """
