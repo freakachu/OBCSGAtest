@@ -28,50 +28,55 @@ import os
 import sys
 import pickle
 import webapp2
+import datetime
 
+#import pycrypto
 
-
-import httplib2
 from apiclient.discovery import build
-from oauth2client.client import AccessTokenRefreshError
 from google.appengine.api import memcache
-from oauth2client.client import SignedJwtAssertionCredentials
+from src.config import OAuth2Handler
 
+TimeStamp=datetime.datetime.now() - datetime.timedelta(hours=4)
+logging.info(str(TimeStamp))
 
+credentials = OAuth2Handler("fusiontables")
 
-f=file('static/key.pem', 'rb')
-key= f.read()
-f.close()
+fusionTables = build("fusiontables", "v1", http=credentials)
+tableID='1FldbAM9tCWQxWAm1MqOBYI6NsXl4IZQbYuAtjCg'
 
-credentials= SignedJwtAssertionCredentials(
-            '642636158554@developer.gserviceaccount.com',
-            key,
-            scope='https://www.googleapis.com/auth/fusiontables')
-
-
-http = httplib2.Http(memcache)
-http = credentials.authorize(http)
-service = build("fusiontables", "v1", http=http)
-
-
-
-
-class MainHandler(webapp2.RequestHandler):
-
+class ftclient():
     
-    def get(self):
-        self.response.write(str(credentials))
-        tables=service.table().list().execute(http)
-        self.response.write(str(tables))
+    def __init__(self):
+        self.giftScores = {
+                           'Category':['Prophecy', 'Serving', 'Teaching', 'Exhortation', 'Giving', 'Administration', 'Mercy'],
+                           'Score':[0,0,0,0,0,0,0]
+                           }
+        self.dict = {}
+        self.dict["TimeStamp"] = TimeStamp
+    
+    def name(self,first,last):
+        self.dict['First Name'] = first
+        self.dict['Last Name'] = last
 
-def main():
-    application = webapp2.WSGIApplication(
-      [
-       ('/FTtest', MainHandler)
-      ],
-      debug=True)
-    application.run()
+    def email(self,email):
+        self.dict["Email Address"] = email
+        
+    def classCheck(self, attend, DoC):
+        if  attend == True:
+            self.dict["Taking OBC 301"] = "Yes"
+            self.dict["Date of Class"]  = DoC
+        else:
+            self.dict["Taking OBC 301"] = "No"
+            self.dict["Date of Class"]  = "N/A"
+    
+    def scoreInput(self,scores):
+        self.giftScores['Scores'] = scores.copy()
+
+    def updateTable(self):
+        self.response = fusionTables.query().sql(sql="insert into "+tableID+ "(" + str(self.dict.key() + self.giftScores.keys()) +")" +
+                                             "values ('"+ str(self.dict.values()) + str(self.giftScores.values()) +')').execute(http=credentials)
+        
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == '__ftclient__':
+    ftclient()

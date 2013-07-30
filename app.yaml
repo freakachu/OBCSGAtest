@@ -1,5 +1,5 @@
 application: obcspiritualgifts
-version: 2
+version: 3
 runtime: python27
 api_version: 1
 threadsafe: false
@@ -10,12 +10,16 @@ threadsafe: false
 #--------------Handlers--------------#   
 handlers:
 #--------------Scripts---------------# 
-- url: /.*
+- url: /
   script: src/sgtest.py
 - url: /FTtest
-  script: helpers/FT_client.py
+  script: src/FT_client.py
 - url: /config
-  script: helpers/config.py
+  script: src/config.py
+- url: /OAuth2
+  script: src/OAuth2_Handler.py
+- url: /.*
+  script: /AppMain.py
 
 #-------------LIBRARIES--------------#  
 

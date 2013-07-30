@@ -1,4 +1,26 @@
+import logging
 import os
+import httplib2
+from google.appengine.api import memcache
+from oauth2client.client import SignedJwtAssertionCredentials
+
+
+
+
+#Global method for OAuth2 Service authentication.
+def OAuth2Handler(text):
+        apiName = text
+        http = httplib2.Http(memcache)
+        f=file('static/key.pem', 'rb')
+        key= f.read()
+        f.close() 
+        creds = SignedJwtAssertionCredentials('642636158554@developer.gserviceaccount.com',key,
+                              scope=('https://www.googleapis.com/auth/'+ apiName))
+            
+        http = creds.authorize(http)
+        return http
+
+#Project path variables.
 
 """
 pathectory: noun.
@@ -38,7 +60,3 @@ TEMPLATES_Path = os.path.join(PROJECT_Path,'templates')
 "It's Sub-Pathectories:"
 HTML_Path = os.path.join(TEMPLATES_Path, 'html')
 CSS_Path = os.path.join(TEMPLATES_Path,'css')
-
-
-# Used to verify correct paths.
-#print ('----------------' + '\n' + (PROJECT_Path + "\n" + STATICFILES_Path + "\n" + TEMPLATES_Path + "\n" + HTML_Path + "\n" + CSS_Path + "\n" + IMGS_Path + "\n" +HTTPLIB2_Path + "\n" +SRC_Path))
