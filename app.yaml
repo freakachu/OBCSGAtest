@@ -13,9 +13,11 @@ handlers:
 - url: /
   script: src/sgtest.py
 - url: /FTtest
-  script: helpers/FT_client.py
+  script: src/FT_client.py
 - url: /config
-  script: helpers/config.py
+  script: src/config.py
+- url: /OAuth2
+  script: src/OAuth2_Handler.py
 - url: /.*
   script: /AppMain.py
 

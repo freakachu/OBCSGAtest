@@ -20,7 +20,7 @@
 Use this project as a starting point if you are just beginning to build a Google
 App Engine project. Remember to download the OAuth 2.0 client secrets which can
 be obtained from the Developer Console <https://code.google.com/apis/console/>
-and save them as 'client_secrets.json' in the project Directory.
+and save them as 'client_secrets.json' in the project Pathectory.
 """
 
 import logging
@@ -28,97 +28,55 @@ import os
 import sys
 import pickle
 import webapp2
-import httplib2
+import datetime
 
-from src import config
+#import pycrypto
 
 from apiclient.discovery import build
-from oauth2client.appengine import oauth2decorator_from_clientsecrets
-from oauth2client.client import AccessTokenRefreshError
 from google.appengine.api import memcache
+from src.config import OAuth2Handler
+
+TimeStamp=datetime.datetime.now() - datetime.timedelta(hours=4)
+logging.info(str(TimeStamp))
+
+credentials = OAuth2Handler("fusiontables")
+
+fusionTables = build("fusiontables", "v1", http=credentials)
+tableID='1FldbAM9tCWQxWAm1MqOBYI6NsXl4IZQbYuAtjCg'
+
+class ftclient():
+    
+    def __init__(self):
+        self.giftScores = {
+                           'Category':['Prophecy', 'Serving', 'Teaching', 'Exhortation', 'Giving', 'Administration', 'Mercy'],
+                           'Score':[0,0,0,0,0,0,0]
+                           }
+        self.dict = {}
+        self.dict["TimeStamp"] = TimeStamp
+    
+    def name(self,first,last):
+        self.dict['First Name'] = first
+        self.dict['Last Name'] = last
+
+    def email(self,email):
+        self.dict["Email Address"] = email
+        
+    def classCheck(self, attend, DoC):
+        if  attend == True:
+            self.dict["Taking OBC 301"] = "Yes"
+            self.dict["Date of Class"]  = DoC
+        else:
+            self.dict["Taking OBC 301"] = "No"
+            self.dict["Date of Class"]  = "N/A"
+    
+    def scoreInput(self,scores):
+        self.giftScores['Scores'] = scores.copy()
+
+    def updateTable(self):
+        self.response = fusionTables.query().sql(sql="insert into "+tableID+ "(" + str(self.dict.key() + self.giftScores.keys()) +")" +
+                                             "values ('"+ str(self.dict.values()) + str(self.giftScores.values()) +')').execute(http=credentials)
+        
 
 
-# CLIENT_SECRETS, name of a file containing the OAuth 2.0 information for this
-# application, including client_id and client_secret.
-# You can see the Client ID and Client secret on the API Access tab on the
-# Google APIs Console <https://code.google.com/apis/console>
-CLIENT_SECRETS = os.path.join(os.path.dirname(config.STATICFILES_Path), 'client_secrets.json')
-
-# Helpful message to display in the browser if the CLIENT_SECRETS file
-# is missing.
-MISSING_CLIENT_SECRETS_MESSAGE = """
-<h1>Warning: Please configure OAuth 2.0</h1>
-<p>
-To make this sample run you will need to populate the client_secrets.json file
-found at:
-</p>
-<code>%s</code>
-<p>You can find the Client ID and Client secret values
-on the API Access tab in the <a
-href="https://code.google.com/apis/console">APIs Console</a>.
-</p>
-
-""" % CLIENT_SECRETS
-
-
-http = httplib2.Http(memcache)
-service = build("fusiontables", "v1", http=http)
-
-
-# Set up an OAuth2Decorator object to be used for authentication.  Add one or
-# more of the following scopes in the scopes parameter below. PLEASE ONLY ADD
-# THE SCOPES YOU NEED. For more information on using scopes please see
-# <https://developers.google.com/+/best-practices>.
-decorator = oauth2decorator_from_clientsecrets(
-    CLIENT_SECRETS,
-    scope=[
-      'https://www.googleapis.com/auth/fusiontables'
-    ],
-    message=MISSING_CLIENT_SECRETS_MESSAGE)
-
-class MainHandler(webapp2.RequestHandler):
-
-    @decorator.oauth_required
-    def get(self):
-        self.response.out.write("""<html><body>
-
-  <p>Congratulations, you are up and running! At this point you will want to add
-  calls into the Fusion Tables API to the <code>main.py</code> file. Please read the
-  <code>main.py</code> file carefully, it contains detailed information in
-  the comments.  For more information on the Fusion Tables API Python library
-  surface you can visit: </p>
-
- <blockquote>
-   <p>
-   <a href="https://google-api-client-libraries.appspot.com/documentation/fusiontables/v1/python/latest/">
-   https://google-api-client-libraries.appspot.com/documentation/fusiontables/v1/python/latest/
-   </a>
-   </p>
- </blockquote>
-
-  <p>
-  Also check out the <a
-    href="https://developers.google.com/api-client-library/python/start/get_started">
-    Python Client Library documentation</a>, and get more information on the
-  Fusion Tables API at:
-  </p>
-
-  <blockquote>
-    <p>
-    <a href="https://developers.google.com/fusiontables">https://developers.google.com/fusiontables</a>
-    </p>
-  </blockquote>
-""")
-
-def main():
-    application = webapp2.WSGIApplication(
-      [
-       ('/', MainHandler),
-       (decorator.callback_path, decorator.callback_handler()),
-      ],
-      debug=True)
-    application.run()
-
-
-if __name__ == '__main__':
-    main()
+if __name__ == '__ftclient__':
+    ftclient()
