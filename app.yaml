@@ -4,22 +4,13 @@ runtime: python27
 api_version: 1
 threadsafe: false
 
-#--------------INCLUDES--------------#
-#includes:
-#- includes.yaml
 #--------------Handlers--------------#   
 handlers:
 #--------------Scripts---------------# 
-- url: /
-  script: src/sgtest.py
-- url: /FTtest
-  script: src/FT_client.py
-- url: /config
-  script: src/config.py
-- url: /OAuth2
-  script: src/OAuth2_Handler.py
+- url: /static
+  static_dir: static
 - url: /.*
-  script: /AppMain.py
+  script: src/sgtest.py
 
 #-------------LIBRARIES--------------#  
 

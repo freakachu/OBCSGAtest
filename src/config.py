@@ -5,28 +5,13 @@ from google.appengine.api import memcache
 from oauth2client.client import SignedJwtAssertionCredentials
 
 
-
-
-#Global method for OAuth2 Service authentication.
-def OAuth2Handler(text):
-        apiName = text
-        http = httplib2.Http(memcache)
-        f=file('static/key.pem', 'rb')
-        key= f.read()
-        f.close() 
-        creds = SignedJwtAssertionCredentials('642636158554@developer.gserviceaccount.com',key,
-                              scope=('https://www.googleapis.com/auth/'+ apiName))
-            
-        http = creds.authorize(http)
-        return http
-
 #Project path variables.
 
 "App Engine Path"
 APP_ENGINE_PATH='../../google_appengine'
 
 "Main Project Pathectory '/' "
-PROJECT_Path = os.getcwd()[0]
+PROJECT_Path = os.getcwd()
 
 API_Path = os.path.join(PROJECT_Path, 'apiclient')
 HTTPLIB2_Path = os.path.join(PROJECT_Path,'httplib2')
@@ -49,3 +34,18 @@ TEMPLATES_Path = os.path.join(PROJECT_Path,'templates')
 "It's Sub-Pathectories:"
 HTML_Path = os.path.join(TEMPLATES_Path, 'html')
 CSS_Path = os.path.join(TEMPLATES_Path,'css')
+
+
+#Global method for OAuth2 Service authentication.
+def OAuth2Handler(text):
+        apiName = text
+        http = httplib2.Http(memcache)
+        f=file('key.pem', 'rb')
+        key= f.read()
+        f.close() 
+        creds = SignedJwtAssertionCredentials('642636158554@developer.gserviceaccount.com',key,
+                              scope=('https://www.googleapis.com/auth/'+ apiName))
+            
+        http = creds.authorize(http)
+        return http
+

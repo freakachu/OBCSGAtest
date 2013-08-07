@@ -47,34 +47,36 @@ tableID='1FldbAM9tCWQxWAm1MqOBYI6NsXl4IZQbYuAtjCg'
 class ftclient():
     
     def __init__(self):
-        self.giftScores = {
-                           'Category':['Prophecy', 'Serving', 'Teaching', 'Exhortation', 'Giving', 'Administration', 'Mercy'],
-                           'Score':[0,0,0,0,0,0,0]
-                           }
-        self.dict = {}
-        self.dict["TimeStamp"] = TimeStamp
+
+        self.columns = ['TimeStamp','First Name', 'Last Name', 'Email Address', 'Taking OBC 301', 'Date of Class',
+                        'Prophecy', 'Serving', 'Teaching', 'Exhortation', 'Giving', 'Administration', 'Mercy']
+        self.values = [TimeStamp]
     
     def name(self,first,last):
-        self.dict['First Name'] = first
-        self.dict['Last Name'] = last
+        self.values.append(first)
+        self.values.append(last)
 
     def email(self,email):
-        self.dict["Email Address"] = email
+        self.values.append(email)
         
     def classCheck(self, attend, DoC):
         if  attend == True:
-            self.dict["Taking OBC 301"] = "Yes"
-            self.dict["Date of Class"]  = DoC
+            self.values.append('Yes')
+            self.values.append(DoC)
         else:
-            self.dict["Taking OBC 301"] = "No"
-            self.dict["Date of Class"]  = "N/A"
+            self.values.append("No")
+            self.values.append("N/A")
     
-    def scoreInput(self,scores):
-        self.giftScores['Scores'] = scores.copy()
+    def scoreInput(self,score):
+        self.values.append(score)
 
     def updateTable(self):
-        self.response = fusionTables.query().sql(sql="insert into "+tableID+ "(" + str(self.dict.key() + self.giftScores.keys()) +")" +
-                                             "values ('"+ str(self.dict.values()) + str(self.giftScores.values()) +')').execute(http=credentials)
+         
+        print self.columns.values()
+        print self.values.values()
+        
+        
+        self.response = fusionTables.query().sql(sql="insert into "+tableID+ "(" + str(self.columns) + ')' + 'values (' + str(self.values) +')').execute(http=credentials)
         
 
 
