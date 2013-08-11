@@ -3,6 +3,7 @@
 	<name>OBCSGAtest</name>
 	<comment></comment>
 	<projects>
+		<project>OBCSGAtest_ftconnector</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
