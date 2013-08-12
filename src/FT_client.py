@@ -72,7 +72,7 @@ class ftclient():
     def scoreInput(self,score):
         self.values.append(score)
 
-    def updateTable(self,Odict):
+    def updateTable(self):
         sqlString = "insert into %s (%s) values (%s)" % str(self.columns), str(self.values)
         print sqlString
         self.response = fusionTables.query().sql(sql=sqlString).execute(http=credentials)
