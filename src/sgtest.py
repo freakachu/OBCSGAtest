@@ -37,20 +37,20 @@ class evaluator(webapp2.RequestHandler):
     
     def post(self):
         
-        ftc = ftclient()
-        
         #This dictionary contains the gift categories, their questions, and scores. 
         gifts = OrderedDict()
-        gifts['prophecy'] = OrderedDict([('questions',[5, 11, 15, 24, 26, 30, 37, 40, 46, 50, 61, 63, 67, 85, 90]),('score',0)])
-        gifts['serving'] = OrderedDict([('questions',[1, 9,12, 19, 22, 28, 34, 39, 43, 53, 58, 62, 64, 80, 87]),('score',0)])
-        gifts['teaching'] = OrderedDict([('questions',[6, 17, 48, 57, 60, 74, 75, 77, 88, 89, 92, 94, 99, 101, 105]),('score',0)])
-        gifts['exhortation'] = OrderedDict([('questions',[3, 7, 13, 31, 36, 45, 51, 52, 70, 78, 79, 81, 83, 97, 103]),('score',0)])
-        gifts['giving'] = OrderedDict([('questions',[2, 10, 18, 25, 32, 41, 47, 55, 65, 69, 72, 76, 86, 98, 104]),('score',0)])
-        gifts['administration'] = OrderedDict([('questions',[8, 14, 20, 23, 29, 35, 44, 49, 56, 71, 73, 82, 93, 95, 102]),('score',0)])
-        gifts['mercy'] = OrderedDict([('questions',[4, 16, 21, 27, 33, 38, 42, 54, 59, 66, 68, 84, 91, 96]),('score',0)])
+        gifts['prophecy'] = {'questions':[5, 11, 15, 24, 26, 30, 37, 40, 46, 50, 61, 63, 67, 85, 90],'score':0}
+        gifts['serving'] = {'questions':[1, 9,12, 19, 22, 28, 34, 39, 43, 53, 58, 62, 64, 80, 87],'score':0}
+        gifts['teaching'] = {'questions':[6, 17, 48, 57, 60, 74, 75, 77, 88, 89, 92, 94, 99, 101, 105],'score':0}
+        gifts['exhortation'] = {'questions':[3, 7, 13, 31, 36, 45, 51, 52, 70, 78, 79, 81, 83, 97, 103],'score':0}
+        gifts['giving'] = {'questions':[2, 10, 18, 25, 32, 41, 47, 55, 65, 69, 72, 76, 86, 98, 104],'score':0}
+        gifts['administration'] = {'questions':[8, 14, 20, 23, 29, 35, 44, 49, 56, 71, 73, 82, 93, 95, 102],'score':0}
+        gifts['mercy'] = {'questions':[4, 16, 21, 27, 33, 38, 42, 54, 59, 66, 68, 84, 91, 96],'score':0}
           
         giftList = gifts.keys()
         scores = list()
+        
+        ftc = ftclient(giftList)
         
        # for gift in gifts.iteritems():
        #     for x in gift[1]:
@@ -65,9 +65,9 @@ class evaluator(webapp2.RequestHandler):
             score = gifts.get(k).get('score')
             for qnum in giftQs:
                 if self.request.get("question"+str(qnum)):
-                    score +=int(self.reqeust.get("question"+str(qnum)))
-                ftc.scoreInput(score)
-                scores.append(score)   
+                    score +=int(self.request.get("question"+str(qnum)))
+            ftc.scoreInput(score)
+            scores.append(score)   
         
         
         
@@ -77,9 +77,12 @@ class evaluator(webapp2.RequestHandler):
         firstName=self.request.get("firstName")
         lastName=self.request.get("lastName")
         email=self.request.get("email")
+        attend=self.request.get("isTakingClass")
+        DoC=self.request.get("classDate")
               
         ftc.name(firstName, lastName)
         ftc.email(email)
+        ftc.classCheck(attend, DoC)
         ftc.updateTable()
         
         #time to render the results template

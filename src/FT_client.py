@@ -29,14 +29,17 @@ import sys
 import pickle
 import webapp2
 import datetime
+import time
 
 #import pycrypto
-
+from pytz.gae import pytz
 from apiclient.discovery import build
 from google.appengine.api import memcache
 from src.config import OAuth2Handler
 
-TimeStamp=datetime.datetime.now() - datetime.timedelta(hours=4)
+eastern=pytz.timezone('US/Eastern')
+TimeStamp=datetime.datetime.now(eastern)
+
 logging.info(str(TimeStamp))
 
 credentials = OAuth2Handler("fusiontables")
@@ -46,10 +49,9 @@ tableID='1FldbAM9tCWQxWAm1MqOBYI6NsXl4IZQbYuAtjCg'
 
 class ftclient():
     
-    def __init__(self):
+    def __init__(self,giftList):
 
-        self.columns = ['TimeStamp','First Name', 'Last Name', 'Email Address', 'Taking OBC 301', 'Date of Class',
-                        'Prophecy', 'Serving', 'Teaching', 'Exhortation', 'Giving', 'Administration', 'Mercy']
+        self.columns = giftList
         self.values = [TimeStamp]
     
     def name(self,first,last):
@@ -70,13 +72,10 @@ class ftclient():
     def scoreInput(self,score):
         self.values.append(score)
 
-    def updateTable(self):
-         
-        print self.columns.values()
-        print self.values.values()
-        
-        
-        self.response = fusionTables.query().sql(sql="insert into "+tableID+ "(" + str(self.columns) + ')' + 'values (' + str(self.values) +')').execute(http=credentials)
+    def updateTable(self,Odict):
+        sqlString = "insert into %s (%s) values (%s)" % str(self.columns), str(self.values)
+        print sqlString
+        self.response = fusionTables.query().sql(sql=sqlString).execute(http=credentials)
         
 
 
