@@ -73,7 +73,7 @@ class ftclient():
         self.values.append(score)
 
     def updateTable(self):
-        sqlString = "insert into %s (%s) values (%s)" % tableID, str(self.columns), str(self.values)
+        sqlString = "insert into %s (%s) values (%s)" % (tableID, str(self.columns), str(self.values))
         print sqlString
         self.response = fusionTables.query().sql(sql=sqlString).execute(http=credentials)
         
