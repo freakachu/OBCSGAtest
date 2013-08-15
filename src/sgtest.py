@@ -46,12 +46,10 @@ class evaluator(webapp2.RequestHandler):
         gifts['giving'] = {'questions':[2, 10, 18, 25, 32, 41, 47, 55, 65, 69, 72, 76, 86, 98, 104],'score':0}
         gifts['administration'] = {'questions':[8, 14, 20, 23, 29, 35, 44, 49, 56, 71, 73, 82, 93, 95, 102],'score':0}
         gifts['mercy'] = {'questions':[4, 16, 21, 27, 33, 38, 42, 54, 59, 66, 68, 84, 91, 96],'score':0}
-          
+        
         giftList = gifts.keys()
         scores = list()
-        
-        ftc = ftclient(giftList)
-        
+        ftc = ftclient(gifts)
        # for gift in gifts.iteritems():
        #     for x in gift[1]:
        #         if self.request.get("question"+str(x)):
@@ -66,7 +64,6 @@ class evaluator(webapp2.RequestHandler):
             for qnum in giftQs:
                 if self.request.get("question"+str(qnum)):
                     score +=int(self.request.get("question"+str(qnum)))
-            ftc.scoreInput(score)
             scores.append(score)   
         
         
@@ -83,7 +80,7 @@ class evaluator(webapp2.RequestHandler):
         ftc.name(firstName, lastName)
         ftc.email(email)
         ftc.classCheck(attend, DoC)
-        ftc.updateTable()
+        ftc.updateTable(gifts)
         
         #time to render the results template
         jinjaEnv=jinja2.Environment(loader= jinja2.FileSystemLoader('templates/html'), autoescape=True)

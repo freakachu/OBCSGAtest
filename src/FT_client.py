@@ -32,6 +32,7 @@ import datetime
 import time
 
 #import pycrypto
+from collections import OrderedDict
 from pytz.gae import pytz
 from apiclient.discovery import build
 from google.appengine.api import memcache
@@ -39,7 +40,6 @@ from src.config import OAuth2Handler
 
 eastern=pytz.timezone('US/Eastern')
 TimeStamp=datetime.datetime.now(eastern)
-
 logging.info(str(TimeStamp))
 
 credentials = OAuth2Handler("fusiontables")
@@ -49,33 +49,36 @@ tableID='1FldbAM9tCWQxWAm1MqOBYI6NsXl4IZQbYuAtjCg'
 
 class ftclient():
     
-    def __init__(self,giftList):
-
-        self.columns = giftList
-        self.values = [TimeStamp]
+    def __init__(self):
+        
+        self.dict = OrderedDict()
     
     def name(self,first,last):
-        self.values.append(first)
-        self.values.append(last)
+        self.dict("First Name",first)
+        self.dict("Last Name",last)
 
     def email(self,email):
-        self.values.append(email)
+        self.dict("Email Address",email)
         
     def classCheck(self, attend, DoC):
         if  attend == True:
-            self.values.append('Yes')
-            self.values.append(DoC)
+            self.dict("Taking OBC 301",'Yes')
+            self.dict("Date of Class",DoC)
         else:
-            self.values.append("No")
-            self.values.append("N/A")
-    
-    def scoreInput(self,score):
-        self.values.append(score)
+            self.dict("Taking OBC 301","No")
+            self.dict("Date of Class","N/A")
 
-    def updateTable(self):
-        sqlString = "insert into %s (%s) values (%s)" % (tableID, str(self.columns), str(self.values))
-        print sqlString
-        self.response = fusionTables.query().sql(sql=sqlString).execute(http=credentials)
+    def updateTable(self,od):
+        for k in od:
+            if k.has_key('questions') is True:
+                k._delitem_('questions')
+                
+        self.dict = self.dict.items() + od.items()
+        columns = str(tuple(self.dict.keys()))
+        values = str(tuple(self.dict.values()))
+        sqlStr = 'insert into %s(%s)values(%s)' % (tableID, columns, values)
+        print sqlStr
+        self.response = fusionTables.query().sql(sql=sqlStr).execute(http=credentials)
         
 
 
