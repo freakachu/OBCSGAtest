@@ -49,7 +49,7 @@ class evaluator(webapp2.RequestHandler):
         
         giftList = gifts.keys()
         scores = list()
-        ftc = ftclient(gifts)
+        ftc = ftclient()
        # for gift in gifts.iteritems():
        #     for x in gift[1]:
        #         if self.request.get("question"+str(x)):
