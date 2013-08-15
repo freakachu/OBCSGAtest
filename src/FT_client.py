@@ -54,19 +54,19 @@ class ftclient():
         self.dict = OrderedDict()
     
     def name(self,first,last):
-        self.dict("First Name",first)
-        self.dict("Last Name",last)
+        self.dict["First Name"]=first
+        self.dict["Last Name"]=last
 
     def email(self,email):
-        self.dict("Email Address",email)
+        self.dict["Email Address"]=email
         
     def classCheck(self, attend, DoC):
         if  attend == True:
-            self.dict("Taking OBC 301",'Yes')
-            self.dict("Date of Class",DoC)
+            self.dict["Taking OBC 301"] = 'Yes'
+            self.dict["Date of Class"]=DoC
         else:
-            self.dict("Taking OBC 301","No")
-            self.dict("Date of Class","N/A")
+            self.dict["Taking OBC 301"]='No'
+            self.dict["Date of Class"]='N/A'
 
     def updateTable(self,od):
         for k in od:
