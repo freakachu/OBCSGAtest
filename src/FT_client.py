@@ -53,6 +53,7 @@ class ftclient():
     def __init__(self):
         
         self.dict = OrderedDict()
+        self.dict["TimeStamp"]=str(TimeStamp)
         
     
     def name(self,first,last):
