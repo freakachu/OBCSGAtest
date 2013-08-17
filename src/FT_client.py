@@ -71,14 +71,18 @@ class ftclient():
 
     def updateTable(self,od):
         for k in od:
-            if k.has_key('questions') is True:
-                k._delitem_('questions')
-                
-        self.dict = self.dict.items() + od.items()
+            if od[k].has_key('questions') is True:
+                del od[k]['questions']
+            self.dict[k]=od[k]
+        
+        
+        #self.dict = self.dict + od
+        logging.info(self.dict)
         columns = str(tuple(self.dict.keys()))
         values = str(tuple(self.dict.values()))
+        logging.info("************************\n**************************\n")
         sqlStr = 'insert into %s(%s)values(%s)' % (tableID, columns, values)
-        print sqlStr
+        logging.info(sqlStr)
         self.response = fusionTables.query().sql(sql=sqlStr).execute(http=credentials)
         
 
