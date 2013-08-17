@@ -7,6 +7,10 @@
 	</head>
 	<body>
 		<form action ="/submit" method=post> 
+			<label>First Name:</label>	<input type=text width=30 name="firstName"><br />
+			<label>Last Name:</label>	<input type=text width=30 name="lastName"> <br />
+			<label>Email address:</label>	<input type=text width=30 name=email> <br />
+			
             <table width=600>
             	<tr>
             		<td>this has been true in my life...</td>
@@ -19,7 +23,7 @@
             	{%for questionNumber in order%}
             	
             		<tr>
-            			<td>{{questions[questionNumber]}}</td>
+            			<td>{{loop.index}}. {{questions[questionNumber]}}</td>
             		{%for x in "12345"|list%}
                 		<td>
                 			<input type="radio" value="{{loop.revindex0}}" name="question{{questionNumber+1}}" />
