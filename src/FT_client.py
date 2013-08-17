@@ -81,7 +81,8 @@ class ftclient():
         columns = str(tuple(self.dict.keys()))
         values = str(tuple(self.dict.values()))
         logging.info("************************\n**************************\n")
-        sqlStr = 'insert into %s(%s)values(%s)' % (tableID, columns, values)
+        #this would be awesome if it were that easy. really, it would.
+        sqlStr = 'insert into %s %s values%s' % (tableID, columns, values)
         logging.info(sqlStr)
         self.response = fusionTables.query().sql(sql=sqlStr).execute(http=credentials)
         
