@@ -67,13 +67,13 @@ class ftclient():
             self.dict["Date of Class"]=DoC
         else:
             self.dict["Taking OBC 301"]='No'
-            self.dict["Date of Class"]='N/A'
+            self.dict["Date Of Class"]='N/A'
 
     def updateTable(self,od):
         for k in od:
             if od[k].has_key('questions') is True:
                 del od[k]['questions']
-            self.dict[k]=od[k]
+            self.dict[k]=od[k]['score']
         
         
         #self.dict = self.dict + od
@@ -81,7 +81,7 @@ class ftclient():
         columns = str(tuple(self.dict.keys()))
         values = str(tuple(self.dict.values()))
         logging.info("************************\n**************************\n")
-        #this would be awesome if it were that easy. really, it would.
+        #there. NOW this statement is valid SQL.
         sqlStr = 'insert into %s %s values%s' % (tableID, columns, values)
         logging.info(sqlStr)
         self.response = fusionTables.query().sql(sql=sqlStr).execute(http=credentials)

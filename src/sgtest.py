@@ -39,13 +39,13 @@ class evaluator(webapp2.RequestHandler):
         
         #This dictionary contains the gift categories, their questions, and scores. 
         gifts = OrderedDict()
-        gifts['prophecy'] = {'questions':[5, 11, 15, 24, 26, 30, 37, 40, 46, 50, 61, 63, 67, 85, 90],'score':0}
-        gifts['serving'] = {'questions':[1, 9,12, 19, 22, 28, 34, 39, 43, 53, 58, 62, 64, 80, 87],'score':0}
-        gifts['teaching'] = {'questions':[6, 17, 48, 57, 60, 74, 75, 77, 88, 89, 92, 94, 99, 101, 105],'score':0}
-        gifts['exhortation'] = {'questions':[3, 7, 13, 31, 36, 45, 51, 52, 70, 78, 79, 81, 83, 97, 103],'score':0}
-        gifts['giving'] = {'questions':[2, 10, 18, 25, 32, 41, 47, 55, 65, 69, 72, 76, 86, 98, 104],'score':0}
-        gifts['administration'] = {'questions':[8, 14, 20, 23, 29, 35, 44, 49, 56, 71, 73, 82, 93, 95, 102],'score':0}
-        gifts['mercy'] = {'questions':[4, 16, 21, 27, 33, 38, 42, 54, 59, 66, 68, 84, 91, 96],'score':0}
+        gifts['Prophecy'] = {'questions':[5, 11, 15, 24, 26, 30, 37, 40, 46, 50, 61, 63, 67, 85, 90],'score':0}
+        gifts['Service'] = {'questions':[1, 9,12, 19, 22, 28, 34, 39, 43, 53, 58, 62, 64, 80, 87],'score':0}
+        gifts['Teaching'] = {'questions':[6, 17, 48, 57, 60, 74, 75, 77, 88, 89, 92, 94, 99, 101, 105],'score':0}
+        gifts['Exhortation'] = {'questions':[3, 7, 13, 31, 36, 45, 51, 52, 70, 78, 79, 81, 83, 97, 103],'score':0}
+        gifts['Giving'] = {'questions':[2, 10, 18, 25, 32, 41, 47, 55, 65, 69, 72, 76, 86, 98, 104],'score':0}
+        gifts['Administration'] = {'questions':[8, 14, 20, 23, 29, 35, 44, 49, 56, 71, 73, 82, 93, 95, 102],'score':0}
+        gifts['Mercy'] = {'questions':[4, 16, 21, 27, 33, 38, 42, 54, 59, 66, 68, 84, 91, 96],'score':0}
         
         giftList = gifts.keys()
         scores = list()
