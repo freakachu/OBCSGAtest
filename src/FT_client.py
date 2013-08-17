@@ -53,6 +53,7 @@ class ftclient():
     def __init__(self):
         
         self.dict = OrderedDict()
+        
     
     def name(self,first,last):
         self.dict["First Name"]=first
