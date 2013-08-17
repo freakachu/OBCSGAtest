@@ -23,55 +23,72 @@ be obtained from the Developer Console <https://code.google.com/apis/console/>
 and save them as 'client_secrets.json' in the project Pathectory.
 """
 
+
 import logging
 import os
 import sys
 import pickle
 import webapp2
+import datetime
+import time
 
-
-
-import httplib2
+#import pycrypto
+from collections import OrderedDict
+from pytz.gae import pytz
 from apiclient.discovery import build
-from oauth2client.client import AccessTokenRefreshError
 from google.appengine.api import memcache
-from oauth2client.client import SignedJwtAssertionCredentials
+from src.config import OAuth2Handler
 
+eastern=pytz.timezone('US/Eastern')
+TimeStamp=datetime.datetime.now(eastern)
+logging.info(str(TimeStamp))
 
+credentials = OAuth2Handler("fusiontables")
 
-f=file('static/key.pem', 'rb')
-key= f.read()
-f.close()
+fusionTables = build("fusiontables", "v1", http=credentials)
+tableID='1FldbAM9tCWQxWAm1MqOBYI6NsXl4IZQbYuAtjCg'
 
-credentials= SignedJwtAssertionCredentials(
-            '642636158554@developer.gserviceaccount.com',
-            key,
-            scope='https://www.googleapis.com/auth/fusiontables')
-
-
-http = httplib2.Http(memcache)
-http = credentials.authorize(http)
-service = build("fusiontables", "v1", http=http)
-
-
-
-
-class MainHandler(webapp2.RequestHandler):
-
+class ftclient():
     
-    def get(self):
-        self.response.write(str(credentials))
-        tables=service.table().list().execute(http)
-        self.response.write(str(tables))
+    def __init__(self):
+        
+        self.dict = OrderedDict()
+        self.dict["TimeStamp"]=str(TimeStamp)
+        
+    
+    def name(self,first,last):
+        self.dict["First Name"]=first
+        self.dict["Last Name"]=last
 
-def main():
-    application = webapp2.WSGIApplication(
-      [
-       ('/FTtest', MainHandler)
-      ],
-      debug=True)
-    application.run()
+    def email(self,email):
+        self.dict["Email Address"]=email
+        
+    def classCheck(self, attend, DoC):
+        if  attend == True:
+            self.dict["Taking OBC 301"] = 'Yes'
+            self.dict["Date of Class"]=DoC
+        else:
+            self.dict["Taking OBC 301"]='No'
+            self.dict["Date Of Class"]='N/A'
+
+    def updateTable(self,od):
+        for k in od:
+            if od[k].has_key('questions') is True:
+                del od[k]['questions']
+            self.dict[k]=od[k]['score']
+        
+        
+        #self.dict = self.dict + od
+        #logging.info(self.dict)
+        columns = str(tuple(self.dict.keys()))
+        values = str(tuple(self.dict.values()))
+        #logging.info("************************\n**************************\n")
+        #there. NOW this statement is valid SQL.
+        sqlStr = 'insert into %s %s values%s' % (tableID, columns, values)
+        #logging.info(sqlStr)
+        self.response = fusionTables.query().sql(sql=sqlStr).execute(http=credentials)
+        
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == '__ftclient__':
+    ftclient()
