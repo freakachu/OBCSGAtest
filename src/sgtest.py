@@ -84,7 +84,7 @@ class evaluator(webapp2.RequestHandler):
         
         #time to render the results template
         jinjaEnv=jinja2.Environment(loader= jinja2.FileSystemLoader('templates/html'), autoescape=True)
-        values={"giftNames": list.split(giftList), "scores": scores}
+        values={"giftNames": giftList, "scores": scores}
         template = jinjaEnv.get_template('result_template.html')
         self.response.write(template.render(values))
         
