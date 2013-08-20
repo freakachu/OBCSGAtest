@@ -11,7 +11,7 @@ from oauth2client.client import SignedJwtAssertionCredentials
 def OAuth2Handler(text):
         apiName = text
         http = httplib2.Http(memcache)
-        f=file('static/key.pem', 'rb')
+        f=file('key.pem', 'rb')
         key= f.read()
         f.close() 
         creds = SignedJwtAssertionCredentials('642636158554@developer.gserviceaccount.com',key,

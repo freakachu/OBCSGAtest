@@ -3,6 +3,7 @@ import webapp2
 import sys
 import httplib2
 import jinja2
+import logging
 
 from src.FT_client import ftclient
 from google.appengine.api import memcache
@@ -21,14 +22,14 @@ config["webapp2_extras.sessions"] = {
 class BaseHandler(webapp2.RequestHandler):
     def dispatch(self):
         #setup sessions using memcache backend instead of the secure cookie default
-        self.session_store = sessions.get_store(request=self.request, backend='memcache')
+        self.session_store = sessions.get_store(request=self.request)
         try:
             webapp2.RequestHandler.dispatch(self)
         finally:
             self.session_store.save_sessions(self.response)
     @webapp2.cached_property
     def session(self):
-        return self.session_store.get_session()
+        return self.session_store.get_session(backend='memcache')
 
 class MainPage(BaseHandler):
     
@@ -59,18 +60,22 @@ class MainPage(BaseHandler):
             self.session['page']=page
         else: #session exists, we may not be on the first page
             order=self.session.get('order')
-            page=self.session.get('page')
+            if(self.request.get('page')):
+                page=int(self.request.get('page'))
+            else:
+                page=int(self.session.get('page'))
+            logging.info("session page is: %d" % page)
             
             
         #determine the start and ending indexes
         #ending index can't be greater than the length, obviously
         questionIndexStart=0
         questionIndexEnd=0
-        questionIndexStart=questionsPerPage*page
-        if((questionsIndexStart)+(questionsPerPage-1)>len(questions)):
+        questionIndexStart=questionsPerPage*(page-1)
+        if((questionIndexStart)+(questionsPerPage-1)>len(questions)):
             questionIndexEnd=len(questions)
         else:
-            questionIndexEnd=questionsIndexStart+questionsPerPage-1
+            questionIndexEnd=questionIndexStart+questionsPerPage
         
         for q in range(questionIndexStart, questionIndexEnd):
             questionsOnPage.append(questions[order[q]])
