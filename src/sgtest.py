@@ -15,13 +15,13 @@ from webapp2_extras import sessions
 config = {}
 config["webapp2_extras.sessions"] = {
     "secret_key": "nubcakery",
+    "session_max_age": 432000 #5 days
 }
 
 
 #base handler class to setup sessions with webapp2
 class BaseHandler(webapp2.RequestHandler):
     def dispatch(self):
-        #setup sessions using memcache backend instead of the secure cookie default
         self.session_store = sessions.get_store(request=self.request)
         try:
             webapp2.RequestHandler.dispatch(self)
@@ -29,6 +29,7 @@ class BaseHandler(webapp2.RequestHandler):
             self.session_store.save_sessions(self.response)
     @webapp2.cached_property
     def session(self):
+         #setup sessions using memcache backend instead of the secure cookie default
         return self.session_store.get_session(backend='memcache')
 
 class MainPage(BaseHandler):
@@ -47,9 +48,10 @@ class MainPage(BaseHandler):
         page=1 #default to page 1
         questionsPerPage=10
         maxPages=len(questions)/questionsPerPage
-        if(len(questions)%questionsPerPage > 0):
+        if(len(questions) % questionsPerPage > 0):
             #account for partial pages
             maxPages+=1
+            
         orderOnPage=[]
         #if no session is setup, create initial data
         if(not self.session.get('order')):        
@@ -62,9 +64,10 @@ class MainPage(BaseHandler):
             order=self.session.get('order')
             if(self.request.get('page')):
                 page=int(self.request.get('page'))
+                self.session['page']=page
             else:
                 page=int(self.session.get('page'))
-            logging.info("session page is: %d" % page)
+            #logging.info("session page is: %d" % page)
             
             
         #determine the start and ending indexes
@@ -72,7 +75,7 @@ class MainPage(BaseHandler):
         questionIndexStart=0
         questionIndexEnd=0
         questionIndexStart=questionsPerPage*(page-1)
-        if((questionIndexStart)+(questionsPerPage-1)>len(questions)):
+        if((questionIndexStart)+(questionsPerPage)>len(questions)):
             questionIndexEnd=len(questions)
         else:
             questionIndexEnd=questionIndexStart+questionsPerPage
@@ -81,7 +84,8 @@ class MainPage(BaseHandler):
             questionsOnPage.append(questions[order[q]])
             orderOnPage.append(order[q])
         
-        
+        for parameter in self.request.arguments():
+            self.session[parameter]=self.request.get(parameter)
         
         JINJA_ENVIRONMENT = jinja2.Environment(loader= jinja2.FileSystemLoader('templates/html'), autoescape=True)
         values={"questions": questionsOnPage, "order": orderOnPage, "pageNum": page, "questionsPerPage":questionsPerPage, "maxPages" : maxPages}
@@ -106,10 +110,15 @@ class evaluator(BaseHandler):
         giftList = gifts.keys()
         scores = list()
         ftc = ftclient()
-       # for gift in gifts.iteritems():
-       #     for x in gift[1]:
-       #         if self.request.get("question"+str(x)):
-       #             scores[gift[0]]+=int(self.request.get("question"+str(x)))
+        # for gift in gifts.iteritems():
+        #     for x in gift[1]:
+        #         if self.request.get("question"+str(x)):
+        #             scores[gift[0]]+=int(self.request.get("question"+str(x)))
+       
+        #merge session and posted question answers
+        for parameter in self.request.arguments():
+            if("question" in parameter):
+                self.session[parameter]=self.request.get(parameter)
          
                  
         for k in gifts:
@@ -118,8 +127,10 @@ class evaluator(BaseHandler):
             #Retrieves the score value from the dictionary associated with "k", where "k" is a key in gifts.
             #score = gifts.get(k).get('score')
             for qnum in giftQs:
-                if self.request.get("question"+str(qnum)):
-                    gifts[k]['score'] +=int(self.request.get("question"+str(qnum)))
+                logging.info("question"+str(qnum))
+                logging.info(self.session.get("question"+str(qnum)))
+                if self.session.get("question"+str(qnum)):
+                    gifts[k]['score'] +=int(self.session.get("question"+str(qnum)))
             scores.append(gifts[k]['score'])   
         
         
@@ -127,11 +138,11 @@ class evaluator(BaseHandler):
         #these fields should be verified, specially the email.
         #we should probably do that with JS on the page itself
         #but doing it again here can't hurt
-        firstName=self.request.get("firstName")
-        lastName=self.request.get("lastName")
-        email=self.request.get("email")
-        attend=self.request.get("isTakingClass")
-        DoC=self.request.get("classDate")
+        firstName=self.session.get("firstName")
+        lastName=self.session.get("lastName")
+        email=self.session.get("email")
+        attend=self.session.get("isTakingClass")
+        DoC=self.session.get("classDate")
               
         ftc.name(firstName, lastName)
         ftc.email(email)
