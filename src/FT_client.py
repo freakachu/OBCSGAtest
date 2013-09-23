@@ -15,12 +15,10 @@
 # limitations under the License.
 #
 
-"""Starting template for Google App Engine applications.
+"""
+Connects to, and updates, the Google Fusion Tables document, 
+for results data analysis and storage.
 
-Use this project as a starting point if you are just beginning to build a Google
-App Engine project. Remember to download the OAuth 2.0 client secrets which can
-be obtained from the Developer Console <https://code.google.com/apis/console/>
-and save them as 'client_secrets.json' in the project Pathectory.
 """
 
 
@@ -65,7 +63,7 @@ class ftclient():
         
     def classCheck(self, attend, DoC):
         if  attend == True:
-            self.dict["Taking OBC 301"] = 'Yes'
+            self.dict["Taking OBC 301"]='Yes'
             self.dict["Date of Class"]=DoC
         else:
             self.dict["Taking OBC 301"]='No'
@@ -73,12 +71,8 @@ class ftclient():
 
     def updateTable(self,od):
         for k in od:
-            if od[k].has_key('questions') is True:
-                del od[k]['questions']
             self.dict[k]=od[k]['score']
         
-        
-        #self.dict = self.dict + od
         #logging.info(self.dict)
         columns = str(tuple(self.dict.keys()))
         values = str(tuple(self.dict.values()))

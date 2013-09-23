@@ -9,6 +9,8 @@ threadsafe: false
 #- includes.yaml
 #--------------Handlers--------------#   
 handlers:
+- url: /stylesheets
+  static_dir: stylesheets
 #--------------Scripts---------------# 
 - url: /.*
   script: src/sgtest.py

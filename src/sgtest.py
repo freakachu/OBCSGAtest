@@ -124,8 +124,7 @@ class evaluator(BaseHandler):
         for k in gifts:
             #Retrieves the question numbers from the dictionary associated with "k", where "k" is a key in gifts.
             giftQs = gifts.get(k).get('questions')
-            #Retrieves the score value from the dictionary associated with "k", where "k" is a key in gifts.
-            #score = gifts.get(k).get('score')
+            
             for qnum in giftQs:
                 logging.info("question"+str(qnum))
                 logging.info(self.session.get("question"+str(qnum)))
