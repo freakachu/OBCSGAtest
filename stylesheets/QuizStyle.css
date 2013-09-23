@@ -2,6 +2,7 @@
 
 /*Main*/
 .main {
+	overflow:hidden;
 	background: #404040;
 	height:600px;
   width:600px;
