@@ -1,0 +1,102 @@
+* {margin: 0; padding: 0; outline: none;}
+
+/*Main*/
+.main {
+	background: #404040;
+	height:600px;
+  width:600px;
+  text-align: left;
+  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; margin:0; padding:0 0 20px 0; 
+}
+/*HEADER*/
+.header {
+  height: 25px;
+  background: #F8B945;
+  color: #eee;
+  text-align: center;
+  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; margin:0; padding:0 0 20px 0; 
+}
+
+.header a {
+  color: #999;
+}
+
+/*Contact Information*/
+.contactInfo {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #DB4624;
+  color: #FFFFFF;
+  text-align: left;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 1px #505050; 
+}
+
+/*Contact Information Field Headings*/
+.ciField {
+  margin: 5px; 
+}
+
+/*Column Headings*/
+.headings {
+  margin-bottom: 15px;  
+  margin-top: 5px;
+  padding: 5px;
+  background: #404040;
+  color: #FFFFFF;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+/*Questions Section*/
+.questionGroup {
+  background: #404040;
+  margin-bottom: 15px;
+  margin: 2px 0;
+}
+
+/*Question List Item: Odd*/
+.odd {
+  width:600px;
+  height: 20px;
+  background: #7E8F33;
+  color:#FFFFFF;
+}
+
+/*Question List Item: Even*/
+.even {
+  width:600px;
+  height: 20px;
+  background: #7E8F33;
+  color:#FFFFFF;
+}
+
+.answers{
+    margin-top: 5px;
+    margin-left: 10px;
+	margin-bottom: 5px;
+	align:right;
+    position:relative;
+		left:20%;
+	    
+}
+
+.answerButton {
+	margin-left: 65px;
+    width:20px;
+	padding:10px;
+	border:0px solid gray;
+}
+
+/*Buttons Section*/
+.Buttons {
+	margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    position:relative;
+        left:85%;
+}
+
+
+
+
