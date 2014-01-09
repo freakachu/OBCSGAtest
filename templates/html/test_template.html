@@ -5,7 +5,7 @@
 		<link type="text/css" rel="stylesheet" href="/stylesheets/QuizStyle.css" />
 		<title>spiritual gifts assessment</title>
 	</head>
-	<body>
+	<body class="main">
 		{#if we're not at the last page, don't send the data to the evaluator#}
 		{%if pageNum==maxPages %}
 			<form action ="/submit" method=post>
@@ -13,7 +13,7 @@
 			<form action="/" method=get>
 		{%endif%}
 			{% block main %}
-			<div class="main">
+			<div class="container">
 				{%if pageNum==1%}
 				{#only ask for this info on the first page#} 
 					<div class="contactInfo">
@@ -27,10 +27,10 @@
 					</div>	
 				{%endif%}
 					<div class="headings">
-			            <table width=600>
+			            <table>
 			            	<colgroup>
-								<col width=200 align='left' />
-								<col span='5' width=80 align='center' />
+								<col class="qHeading" />
+								<col class="aHeading" span='5' width=80 align='center' />
 							</colgroup>
 			            	<tr>
 			            		<th>this has been true in my life...</th>
