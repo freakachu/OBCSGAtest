@@ -1,23 +1,24 @@
-* {margin: 0; padding: 0; outline: none;}
+* {margin: 0; outline: focus;}
 
 /*Main*/
 .main {
+		align-content: center;
 		overflow:hidden;
-		background: #404040;
-		height:650px;
-  	    width:650px;
+		background: #ffffff;
+		height:750px;
+  	    width:100%;
   	    text-align: left;
-  	    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; margin:0; padding:0 0 20px 0; 
+  	    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; margin:0;
 }
 /*Container*/
 .container {
-		height:600px;
-  	    width:600px;
-		position:relative;
-			top: 25px;
-			bottom: 25px;
-			left: 25px;
-			right: 25px;
+	border-style:ridge;
+	border-color:#98bf21;
+		width: 80%;
+		height: 80%;
+		margin-left:auto;
+		margin-right:auto;
+		position:center;
 }
 /*HEADER*/
 .header {
@@ -25,7 +26,7 @@
   	background: #F8B945;
   	color: #eee;
   	text-align: center;
-  	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; margin:0; padding:0 0 20px 0; 
+  	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; margin:0;
 }
 
 .header a {
@@ -34,6 +35,10 @@
 
 /*Contact Information*/
 .contactInfo {
+	border-style:ridge;
+	border-color:#98bf21;
+	margin-left: auto;
+	margin-right: auto;
   	margin-bottom: 15px;
   	padding: 10px;
   	background: #DB4624;
@@ -50,78 +55,77 @@
 
 /*Column Headings*/
 .headings {
+	background: #7E8F33;
+	border-style:ridge;
+	border-color:#98bf21;
+	width: 90%;
   	margin-bottom: 15px;  
   	margin-top: 5px;
-  	padding: 5px;
-  	background: #404040;
+	margin-left:auto;
+	margin-right:auto;
   	color: #FFFFFF;
-  	text-align: left;
+	text-align:right;
   	text-transform: uppercase;
+	text-indent: 2.99%;
+	
 }
 
 /*Column Headings - Questions*/
 .qheading {
-		text-align: left;
-  	margin-right: 10px;  
   	padding: 5px;
 		width: auto|length;
 }
 
 /*Column Headings - Answers*/
 .aheading {
-		text-align: center;
-  	margin-right: 5px;  
-  	padding: 5px;
-		width: auto|length;
+      margin-right: 5px;  
+      padding: 5px;
+	    width: auto|length;
 }
 
 /*Questions Section*/
 .questionGroup {
-  	background: #404040;
-  	margin-bottom: 15px;
-  	margin: 2px 0;
+	width:90%;
+	margin-bottom: 15px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 /*Question List Item: Odd*/
 .odd {
+	border-style:ridge;
+	border-color:#98bf21;
 		text-indent:10px;
-  	width:600px;
   	height: 20px;
-  	background: #7E8F33;
   	color:#FFFFFF;
+	background: #404040;
 }
 
 /*Question List Item: Even*/
 .even {
+	background: #404040;
+	border-style:ridge;
+	border-color:#98bf21;
 		text-indent:10px;
-  	width:600px;
   	height: 20px;
-  	background: #7E8F33;
   	color:#FFFFFF;
 }
 
 .answers{
     margin-top: 5px;
-    margin-left: 5px;
 	margin-bottom: 5px;
-    position:relative;
-        left:25%;
-    
-	    
+	position:relative;
+		left:30%;
 }
 
 .answerButton {
-		margin-left: 65px;
-        width:20px;
-		padding:10px;
-		border:0px solid gray;
+	margin-left:10%;
+	width:20px;
+	padding:50px;
 }
 
 /*Buttons Section*/
 .Buttons {
-		margin-top: 5px;
-    margin-left: 20px;
-    margin-bottom: 15px;
     position:relative;
         left:85%;
 }
