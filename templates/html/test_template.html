@@ -4,6 +4,14 @@
 	<head>
 		<link type="text/css" rel="stylesheet" href="/stylesheets/QuizStyle.css" />
 		<title>spiritual gifts assessment</title>
+		<script>
+		function clickBack()
+		{
+			document.forms[0].page.value={{pageNum-1}};
+			document.forms[0].method="get";
+			document.forms[0].action="/";
+		}
+		</script>
 	</head>
 	<body class="main">
 		{#if we're not at the last page, don't send the data to the evaluator#}
@@ -62,7 +70,7 @@
 		            <div class="Buttons">
 			        	<input type="hidden" name="page" value="" />
 			        	{%if pageNum!=1%}
-			        	<input type="submit" name="back" value="<-- Back" onClick="document.forms[0].page.value={{pageNum-1}}"/>
+			        	<input type="submit" name="back" value="<-- Back" onClick="clickBack()"/>
 			        	{%endif%}
 			        	{%if pageNum==maxPages%}
 			        	<input type="submit" name="submit" value="submit!" />
