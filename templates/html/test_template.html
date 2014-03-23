@@ -71,8 +71,9 @@
         			           				<dd class="panel-body">
         			           					{% for item in ['Regularly','Frequently',
         			           					                'Sometimes','Rarely','Never'] %}
-			           					               <label>
+			           					               
         						                	   <input type="radio" id="optionRadios{{radioCount}}" value="{{loop.revindex0}}" name="question{{order[outer_loop.index0]}}" />
+        						                	   	<label>
         						                	    {{item}}
         						                	    </label>
         						                	{% set radioCount=radioCount+1 %}
