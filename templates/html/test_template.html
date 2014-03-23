@@ -72,9 +72,8 @@
         			           					{% for item in ['Regularly','Frequently',
         			           					                'Sometimes','Rarely','Never'] %}
 			           					               <label>
-        						                	   <input type="radio" id="optionRadios{{radioCount}}" value="{{loop.revindex0}}" name="question{{order[outer_loop.index0]}}">
+        						                	   <input type="radio" id="optionRadios{{radioCount}}" value="{{loop.revindex0}}" name="question{{order[outer_loop.index0]}}" />
         						                	    {{item}}
-        						                	    </input>
         						                	    </label>
         						                	{% set radioCount=radioCount+1 %}
         						                
