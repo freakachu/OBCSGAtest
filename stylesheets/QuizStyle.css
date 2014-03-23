@@ -1,25 +1,12 @@
-* {margin: 0; outline: focus;}
+* {margin: 0 auto; outline: focus;}
 
-/*Main*/
-.main {
-		align-content: center;
-		overflow:hidden;
-		background: #ffffff;
-		height:750px;
-  	    width:100%;
-  	    text-align: left;
-  	    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; margin:0;
-}
 /*Container*/
-.container {
-	border-style:ridge;
-	border-color:#98bf21;
-		width: 80%;
-		height: 80%;
-		margin-left:auto;
-		margin-right:auto;
-		position:center;
+.container{
+		height:95%;
+		width:90%;    
+		font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
 }
+
 /*HEADER*/
 .header {
   	height: 25px;
@@ -32,6 +19,15 @@
 .header a {
   	color: #999;
 }
+
+/*Form*/
+.form {
+    background:#404040;
+    border-style:ridge;
+	border-color:#98bf21;
+}
+
+
 
 /*Contact Information*/
 .contactInfo {
@@ -53,75 +49,60 @@
  		margin: 5px; 
 }
 
-/*Column Headings*/
-.headings {
+/*Heading*/
+.headingOverlay {
 	background: #7E8F33;
 	border-style:ridge;
 	border-color:#98bf21;
-	width: 90%;
+	width: auto;
   	margin-bottom: 15px;  
   	margin-top: 5px;
-	margin-left:auto;
-	margin-right:auto;
   	color: #FFFFFF;
 	text-align:right;
   	text-transform: uppercase;
 	text-indent: 2.99%;
+	transform:rotate(-7deg);
+    -ms-transform:rotate(-7deg); /* IE 9 */
+    -webkit-transform:rotate(-7deg); /* Opera, Chrome, and Safari */
 	
 }
 
-/*Column Headings - Questions*/
-.qheading {
-  	padding: 5px;
-		width: auto|length;
-}
-
-/*Column Headings - Answers*/
-.aheading {
-      margin-right: 5px;  
-      padding: 5px;
-	    width: auto|length;
-}
-
 /*Questions Section*/
-.questionGroup {
+.questions {
 	width:90%;
 	margin-bottom: 15px;
-	margin-left:auto;
-	margin-right:auto;
 }
 
-/*Question List Item: Odd*/
-.odd {
-	border-style:ridge;
+.questionLine {
+    margin-left:auto;
+}
+
+/*Question List Item*/
+.question{
+	border-bottom:ridge;
 	border-color:#98bf21;
-		text-indent:10px;
-  	height: 20px;
-  	color:#FFFFFF;
-	background: #404040;
+  	height: 20%;
+  	color:#ffffff;
 }
 
-/*Question List Item: Even*/
-.even {
-	background: #404040;
-	border-style:ridge;
-	border-color:#98bf21;
-		text-indent:10px;
-  	height: 20px;
-  	color:#FFFFFF;
+.answersLine{
+    margin-top: 1%;
+	margin-bottom: 2%;
 }
 
-.answers{
-    margin-top: 5px;
-	margin-bottom: 5px;
-	position:relative;
-		left:30%;
+.answerPair {
+    position: relative;
+    left: 40%;
+}
+
+.answerLabel {
+	margin-left:5%;
+    color:#ffffff;
 }
 
 .answerButton {
-	margin-left:10%;
-	width:20px;
-	padding:50px;
+	width:25px;
+	color:#404040;
 }
 
 /*Buttons Section*/
