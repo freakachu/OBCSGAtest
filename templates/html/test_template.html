@@ -173,7 +173,6 @@
         
         		         {% endblock questions %}
         		        <div class="panel-footer">
-        	            <div class="btn-group">
         		        	<input type="hidden" name="page" value=""/>
         		        	{%if pageNum!=1%}
         
@@ -185,7 +184,6 @@
         		        	<button type="submit" class="btn btn-default" name="submit" value="Next -->" onClick="document.forms[0].page.value={{pageNum+1}}">Next</button>
         		        	{%endif%}
         	        	</div>
-    	        	</div>
         		{% endblock main %}	
         	</form>
 >>>>>>> 23326846dec93235d97a434b23c2201fe6fee61c
