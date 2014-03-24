@@ -1,17 +1,21 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-	<head>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-	
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-		<title>spiritual gifts assessment</title>
-		<script>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"
+	type="text/javascript"></script>
+<title>spiritual gifts assessment</title>
+<script type="text/javascript">
 		function clickBack()
 		{
 			document.forms[0].page.value={{pageNum-1}};
@@ -20,173 +24,84 @@
 		}
 		</script>
 
-	</head>
-	<body >
-	    <div class="conatiner-fluid">
-<<<<<<< HEAD
-	        <div class="row">
-    	        <div class="col-xs-10 col-xs-offset-1">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">OBC 301: Spiritual Gifts Survey</h3>
-                        </div>
-                	{#if we're not at the last page, don't send the data to the evaluator#}
-                	{%if pageNum==maxPages %}
-                		<form class="panel-body" role="form" action ="/submit" method=post>
-                	{%else%}
-                		<form class="panel-body" role="form" action="/" method=get>
-                	{%endif%}
-                		{% block main %}
-                			{%if pageNum==1%}
-                			{#only ask for this info on the first page#}
-                			<div class="row">
-                			    <div class="col-xs-6 col-xs-offset-3">
-                        			<div class="panel panel-default">
-                        			    <div class="panel-heading">
-                        			        <h3 class="panel-title">Contact Information</h3>
-                        			    </div>
-                        					<div class="form-group">
-                        					    <label for="firstName">First Name</label>
-                        					    <input class="form-control" type="text" name="firstName" id="firstName">
-                        					</div>
-                        				    <div class="form-group">
-                        				         <label for="lastName">Last Name</label>
-                        				         <input class="form-control" type="text" name="lastName" id="lastName">
-                        				    </div>
-                        					<div class="form-group">
-                        					     <label for="email">Email Address</label>
-                        						 <input class="form-control" type="email" name=email id="email">
-                        					</div>
-                    					</div>
-                				</div>
-            				</div>
-                			{%endif%}
-                	            {% block questions %}
-                	            {% set radioCount=0 %}
-            		            	<div class="form-goup">
-                		            	<table class="table table-hover">
-                		            	    <tbody>
-                			            	{% for questionNumber in questions %}
-                			            	{% set outer_loop=loop %}
-                			            	<div class="row panel-default">
-                			            	<tr>
-                			           			<td class="row panel-default">
-                			           			    <div class="panel-heading">
-                			           			        <h4 class="panel-title">{{loop.index+(questionsPerPage*(pageNum-1))}}. {{questionNumber}}</h4>
-            			           			        </div>
-                			           				<div class="panel-body">
-                			           					{% for item in ['Regularly','Frequently',
-                			           					                'Sometimes','Rarely','Never'] %}
-            		           					               
-                						                	   <input type="radio" id="optionRadios{{radioCount}}" value="{{loop.revindex0}}" name="question{{order[outer_loop.index0]}}" />
-                						                	   	<label>
-                						                	    {{item}}
-                						                	    </label>
-                						                	{% set radioCount=radioCount+1 %}
-                						                
-                					                	{% endfor %}
-                					                </div>
-            					                </td>
-            				                </tr>
-                			            	{% endfor %}
-            			            	    </tbody>
-            			            	</table>
-            		            	</div>
-                    		         {% endblock questions %}
-                    		         
-                    		        <div class="panel-footer">
-                    	            <div class="btn-group">
-                    		        	<input type="hidden" name="page" value=""/>
-                    		        	{%if pageNum!=1%}
-                    
-                    		        	<button type="submit" class="btn btn-primary" name="back"onClick="clickBack()">Back</button>
-                    		        	{%endif%}
-                    		        	{%if pageNum==maxPages%}
-                    		        	<button type="submit" class="btn btn-primary" name="submit" value="Submit!">Submit</button>
-                    		        	{%else%}
-                    		        	<button type="submit" class="btn btn-primary" name="submit" value="Next -->" onClick="document.forms[0].page.value={{pageNum+1}}">Next</button>
-                    		        	{%endif%}
-                    	        	</div>
-                	        	</div>
-                    		{% endblock main %}	
-                    	</form>
-                	</div>
-            	</div>
-        	</div>
-=======
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h1 class="panel-title">OBC 301: Spiritual Gifts Survey</h3>
-	            </div>
-        	{#if we're not at the last page, don't send the data to the evaluator#}
-        	{%if pageNum==maxPages %}
-        		<form class="panel-body" role="form" action ="/submit" method=post>
-        	{%else%}
-        		<form class="panel-body" role="form" action="/" method=get>
-        	{%endif%}
-        		{% block main %}
-        			{%if pageNum==1%}
-        			{#only ask for this info on the first page#} 
-        			<div class="panel panel-default">
-        			    <div class="panel-heading">
-        			        <h3 class="panel-title">Contact Information</h3>
-        			    </div>
-        					<div class="form-group">
-        					    <label for="firstName">First Name</label>
-        					    <input class="form-control" type="text" name="firstName" id="firstName">
-        					</div>
-        				    <div class="form-group">
-        				         <label for="lastName">Last Name</label>
-        				         <input class="form-control" type="text" name="lastName" id="lastName">
-        				    </div>
-        					<div class="form-group">
-        					     <label for="email">Email Address</label>
-        						 <input class="form-control" type="email" name=email id="email">
-        					</div>
-    				</div>
-        			{%endif%}
-        			
-        	            {% block questions %}
-        	            {% set radioCount=0 %}
-        		            	<dl class=form-goup>
-        			            	{% for questionNumber in questions %}
-        			            	{% set outer_loop=loop %}
-        			           			<dt class="row panel-default">
-        			           			    <div class="panel-heading">
-        			           			        <h4 class="panel-title">{{loop.index+(questionsPerPage*(pageNum-1))}}. {{questionNumber}}</h4>
-    			           			        </div>
-        			           				<dd class="panel-body">
-        			           					{% for item in ['Regularly','Frequently',
-        			           					                'Sometimes','Rarely','Never'] %}
-			           					               
-        						                	   <input type="radio" id="optionRadios{{radioCount}}" value="{{loop.revindex0}}" name="question{{order[outer_loop.index0]}}" />
-        						                	   	<label>
-        						                	    {{item}}
-        						                	    </label>
-        						                	{% set radioCount=radioCount+1 %}
-        						                
-        					                	{% endfor %}
-        					                </dd>
-    					                </dt>
-        			            	{% endfor %}
-        		            	</dl>
-        
-        		         {% endblock questions %}
-        		        <div class="panel-footer">
-        		        	<input type="hidden" name="page" value=""/>
-        		        	{%if pageNum!=1%}
-        
-        		        	<button type="submit" class="btn btn-default" name="back"onClick="clickBack()">Back</button>
-        		        	{%endif%}
-        		        	{%if pageNum==maxPages%}
-        		        	<button type="submit" class="btn btn-default" name="submit" value="Submit!">Submit</button>
-        		        	{%else%}
-        		        	<button type="submit" class="btn btn-default" name="submit" value="Next -->" onClick="document.forms[0].page.value={{pageNum+1}}">Next</button>
-        		        	{%endif%}
-        	        	</div>
-        		{% endblock main %}	
-        	</form>
->>>>>>> 23326846dec93235d97a434b23c2201fe6fee61c
-    	</div>
-	</body>
+</head>
+<body>
+	<div class="conatiner-fluid">
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-1">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h1 class="panel-title">
+							OBC 301: Spiritual Gifts Survey
+							<h3></h3>
+						</h1>
+					</div>
+					{#if we're not at the last page, don't send the data to the
+					evaluator#} {%if pageNum==maxPages %}
+					<form class="panel-body" role="form" action="/submit" method="post">
+						{%else%}
+						<form class="panel-body" role="form" action="/" method="get">
+							{%endif%} {% block main %} {%if pageNum==1%} {#only ask for this
+							info on the first page#}
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">Contact Information</h3>
+								</div>
+								<div class="form-group">
+									<label for="firstName">First Name</label> <input
+										class="form-control" type="text" name="firstName"
+										id="firstName">
+								</div>
+								<div class="form-group">
+									<label for="lastName">Last Name</label> <input
+										class="form-control" type="text" name="lastName" id="lastName">
+								</div>
+								<div class="form-group">
+									<label for="email">Email Address</label> <input
+										class="form-control" type="email" name="email" id="email">
+								</div>
+							</div>
+							{%endif%} {% block questions %} {% set radioCount=0 %}
+							<dl class="form-goup">
+								{% for questionNumber in questions %} {% set outer_loop=loop %}
+								<dt class="row panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">{{loop.index+(questionsPerPage*(pageNum-1))}}.
+											{{questionNumber}}</h4>
+									</div>
+								</dt>
+								<dd class="panel-body">
+									{% for item in ['Regularly','Frequently',
+									'Sometimes','Rarely','Never'] %} <input type="radio"
+										id="optionRadios{{radioCount}}" value="{{loop.revindex0}}"
+										name="question{{order[outer_loop.index0]}}" /> <label>
+										{{item}} </label> {% set radioCount=radioCount+1 %} {% endfor %}
+								</dd>
+								<dt></dt>
+								{% endfor %}
+							</dl>
+
+							{% endblock questions %}
+							<div class="panel-footer">
+								<input type="hidden" name="page" value="" /> {%if pageNum!=1%}
+
+								<button type="submit" class="btn btn-default" name="back"
+									onClick="clickBack()">Back</button>
+								{%endif%} {%if pageNum==maxPages%}
+								<button type="submit" class="btn btn-default" name="submit"
+									value="Submit!">Submit</button>
+								{%else%}
+								<button type="submit" class="btn btn-default" name="submit"
+									value="Next --&gt;"
+									onClick="document.forms[0].page.value={{pageNum+1}}">Next</button>
+								{%endif%}
+							</div>
+							{% endblock main %}
+						</form>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
