@@ -11,7 +11,6 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="//jlambright.github.io/Oakleaf/js/bootstrap.min.js"></script>
 		<title>spiritual gifts assessment</title>
-
 		<script>
 		function clickBack()
 		{
@@ -24,6 +23,7 @@
 	</head>
 	<body >
 	    <div class="conatiner-fluid">
+<<<<<<< HEAD
 	        <div class="row">
     	        <div class="col-xs-10 col-xs-offset-1">
                     <div class="panel panel-default">
@@ -113,6 +113,82 @@
                 	</div>
             	</div>
         	</div>
+=======
+	        <div class="panel panel-default">
+	            <div class="panel-heading">
+	                <h1 class="panel-title">OBC 301: Spiritual Gifts Survey</h3>
+	            </div>
+        	{#if we're not at the last page, don't send the data to the evaluator#}
+        	{%if pageNum==maxPages %}
+        		<form class="panel-body" role="form" action ="/submit" method=post>
+        	{%else%}
+        		<form class="panel-body" role="form" action="/" method=get>
+        	{%endif%}
+        		{% block main %}
+        			{%if pageNum==1%}
+        			{#only ask for this info on the first page#} 
+        			<div class="panel panel-default">
+        			    <div class="panel-heading">
+        			        <h3 class="panel-title">Contact Information</h3>
+        			    </div>
+        					<div class="form-group">
+        					    <label for="firstName">First Name</label>
+        					    <input class="form-control" type="text" name="firstName" id="firstName">
+        					</div>
+        				    <div class="form-group">
+        				         <label for="lastName">Last Name</label>
+        				         <input class="form-control" type="text" name="lastName" id="lastName">
+        				    </div>
+        					<div class="form-group">
+        					     <label for="email">Email Address</label>
+        						 <input class="form-control" type="email" name=email id="email">
+        					</div>
+    				</div>
+        			{%endif%}
+        			
+        	            {% block questions %}
+        	            {% set radioCount=0 %}
+        		            	<dl class=form-goup>
+        			            	{% for questionNumber in questions %}
+        			            	{% set outer_loop=loop %}
+        			           			<dt class="row panel-default">
+        			           			    <div class="panel-heading">
+        			           			        <h4 class="panel-title">{{loop.index+(questionsPerPage*(pageNum-1))}}. {{questionNumber}}</h4>
+    			           			        </div>
+        			           				<dd class="panel-body">
+        			           					{% for item in ['Regularly','Frequently',
+        			           					                'Sometimes','Rarely','Never'] %}
+			           					               
+        						                	   <input type="radio" id="optionRadios{{radioCount}}" value="{{loop.revindex0}}" name="question{{order[outer_loop.index0]}}" />
+        						                	   	<label>
+        						                	    {{item}}
+        						                	    </label>
+        						                	{% set radioCount=radioCount+1 %}
+        						                
+        					                	{% endfor %}
+        					                </dd>
+    					                </dt>
+        			            	{% endfor %}
+        		            	</dl>
+        
+        		         {% endblock questions %}
+        		        <div class="panel-footer">
+        	            <div class="btn-group">
+        		        	<input type="hidden" name="page" value=""/>
+        		        	{%if pageNum!=1%}
+        
+        		        	<button type="submit" class="btn btn-default" name="back"onClick="clickBack()">Back</button>
+        		        	{%endif%}
+        		        	{%if pageNum==maxPages%}
+        		        	<button type="submit" class="btn btn-default" name="submit" value="Submit!">Submit</button>
+        		        	{%else%}
+        		        	<button type="submit" class="btn btn-default" name="submit" value="Next -->" onClick="document.forms[0].page.value={{pageNum+1}}">Next</button>
+        		        	{%endif%}
+        	        	</div>
+    	        	</div>
+        		{% endblock main %}	
+        	</form>
+>>>>>>> 23326846dec93235d97a434b23c2201fe6fee61c
     	</div>
 	</body>
 </html>
