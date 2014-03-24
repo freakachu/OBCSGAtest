@@ -39,10 +39,12 @@
 					{#if we're not at the last page, don't send the data to the
 					evaluator#} {%if pageNum==maxPages %}
 					<form class="panel-body" role="form" action="/submit" method="post">
-						{%else%}
-						<form class="panel-body" role="form" action="/" method="get">
-							{%endif%} {% block main %} {%if pageNum==1%} {#only ask for this
-							info on the first page#}
+					{%else%}
+					<form class="panel-body" role="form" action="/" method="get">
+					{%endif%} 
+					{% block main %} 
+					{%if pageNum==1%} 
+					{#only ask for this info on the first page#}
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h3 class="panel-title">Contact Information</h3>
@@ -98,10 +100,9 @@
 							</div>
 							{% endblock main %}
 						</form>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
+	</body>
 </html>
